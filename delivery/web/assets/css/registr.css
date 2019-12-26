@@ -1,0 +1,14 @@
+.container{
+    margin: auto;
+}
+.row{
+    margin: 8px 0 0 0;
+}
+.label{
+    margin: 3px 0 0 0;
+}
+.submit{
+    background-color: #005cbf;
+    font-size: 15px;
+    color: #fff3cd;
+}
