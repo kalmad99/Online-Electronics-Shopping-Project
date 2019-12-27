@@ -1,0 +1,33 @@
+{{ define "index.layout" }}
+
+{{ template "navbar" . }}
+{{ template "index.content" . }}
+{{ template "footer" . }}
+
+{{ end }}
+
+{{ define "index.content" }}
+<hr>
+<div class="container">
+    <div class="card-deck mb-3 text-center">
+        <div class="row">
+            {{ range . }}
+                <div class="col-lg-3">
+                    <div class="card border-light shadow-sm" style="width: 18rem;">
+                        <img style="height: 350px;" src="/assets/img/{{ .Image }}" class="card-img-top" />
+                        <div class="card-body">
+                            <h3 class="card-title">{{ .Name }}</h3>
+{{/*                            <p class="card-text"> {{ .Description }} </p>*/}}
+                            <p class="card-text"> Price{{ .Price }} </p>
+                            <h5>Rating: <b>{{ .Rating }}</b>/5</h5>
+                            <a href="/detail?id={{ .ID }}" class="card-link">Details</a>
+                        </div>
+                    </div>
+                </div>
+            {{else}}
+            <h2>No Items Found</h2>
+            {{ end }}
+        </div>
+    </div>
+</div>
+{{ end }}
