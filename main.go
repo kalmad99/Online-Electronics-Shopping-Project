@@ -286,7 +286,7 @@ func main() {
 	http.HandleFunc("/seller/products/delete", sellerDeleteProduct)
 	http.HandleFunc("/registrationpage", regist)
 	http.HandleFunc("/Registration", Registration)
-	http.HandleFunc("/login", login)
+	http.HandleFunc("/login", Login)
 
 	_ = http.ListenAndServe(":8181", nil)
 
