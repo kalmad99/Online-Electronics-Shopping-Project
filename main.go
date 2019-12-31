@@ -3,7 +3,9 @@ package main
 import (
 	"./entity"
 	"database/sql"
+	"golang.org/x/crypto/bcrypt"
 	"io"
+	"log"
 	"mime/multipart"
 	"os"
 	"path/filepath"
@@ -17,13 +19,12 @@ import (
 	"html/template"
 	"net/http"
 	"strconv"
-
 	//uuid "github.com/satori/go.uuid"
 )
+
 var tmpl = template.Must(template.ParseGlob("delivery/web/templates/*.html"))
 var productService *service.ProductService
 var userService *uservice.UserService
-
 
 func index(w http.ResponseWriter, r *http.Request) {
 
@@ -178,8 +179,8 @@ func login(w http.ResponseWriter, req *http.Request) {
 	_ = tmpl.ExecuteTemplate(w, "login.html", nil)
 }
 
-func Registration (w http.ResponseWriter, req *http.Request){
-	if req.Method != "POST"{
+func Registration(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
 		http.Redirect(w, req, "/registration", http.StatusSeeOther)
 		return
 	}
@@ -190,12 +191,41 @@ func Registration (w http.ResponseWriter, req *http.Request){
 	//usr.Phone = req.FormValue("phone")
 
 	err := userService.StoreUser(usr)
-	if err!=nil{
+	if err != nil {
 		panic(err.Error())
 	}
 
 	_ = tmpl.ExecuteTemplate(w, "after.html", usr)
 }
+func Login(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
+		return
+	}
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+
+	log.Println(email)
+	usr, err := userService.User(email)
+
+	//log.Println(usr.Name)
+	//log.Println(usr.Email)
+	//log.Println(usr.Phone)
+	//log.Println(usr.Password)
+
+	err = bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(password))
+	if err != nil {
+		log.Println("Username or Password is incorrect")
+		http.Redirect(w, req, "/Loginpage", 301)
+		return
+	}
+	err = tmpl.ExecuteTemplate(w, "update.html", usr)
+	if err != nil {
+		panic(err.Error())
+	}
+
+}
+
 func writeFile(mf *multipart.File, fname string) {
 
 	wd, err := os.Getwd()

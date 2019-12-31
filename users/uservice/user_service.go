@@ -40,9 +40,20 @@ func (us *UserService) StoreUser(user entity.User) error {
 }
 
 // User returns a user object with a given id
-func (us *UserService) User(id int) (entity.User, error) {
+func (us *UserService) User(email string) (entity.User, error) {
 
-	u, err := us.userRepo.User(id)
+	u, err := us.userRepo.Login(email)
+
+	if err != nil {
+		return u, err
+	}
+
+	return u, nil
+}
+
+func (us *UserService) UserwithID(id int) (entity.User, error) {
+
+	u, err := us.userRepo.UserwithID(id)
 
 	if err != nil {
 		return u, err

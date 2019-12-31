@@ -4,6 +4,7 @@ import (
 	"../../entity"
 	"database/sql"
 	"errors"
+	"log"
 )
 
 // PsqlCategoryRepository implements the
@@ -43,18 +44,40 @@ func (ur *PsqlUserRepository) Users() ([]entity.User, error) {
 }
 
 // Category returns a category with a given id
-func (ur *PsqlUserRepository) User(id int) (entity.User, error) {
 
+// Category returns a category with a given id
+func (ur *PsqlUserRepository) Login(email string) (entity.User, error) {
+
+	u := entity.User{}
+
+	row := ur.conn.QueryRow("SELECT * FROM users WHERE email=?", email)
+	err := row.Scan(&u.ID, &u.Name, &u.Email, &u.Phone, &u.Password)
+
+	if err != nil {
+		return u, errors.New("username or Password is incorrect")
+	}
+	return u, nil
+}
+
+func (ur *PsqlUserRepository) UserwithID(id int) (entity.User, error) {
 	row := ur.conn.QueryRow("SELECT * FROM users WHERE id = ?", id)
 
 	u := entity.User{}
 
-	err := row.Scan(&u.ID, &u.Name, &u.Email, &u.Password)
+	err := row.Scan(&u.ID, &u.Name, &u.Email, &u.Phone, &u.Password)
+
+	log.Println(u.Name)
+	log.Println(u.Email)
+	log.Println(u.Phone)
+
+	//err = bcrypt.CompareHashAndPassword([]byte(hashpass), []byte(u.Password))
+
 	if err != nil {
 		return u, err
 	}
 
 	return u, nil
+
 }
 
 // UpdateCategory updates a given object with a new data
