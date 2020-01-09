@@ -2,7 +2,7 @@ package users
 
 import "../entity"
 
-type UserRepository interface {
+type UserService interface {
 	Users() ([]entity.User, error)
 	Login(email string) (entity.User, error)
 	UserwithID(id int) (entity.User, error)

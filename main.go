@@ -3,13 +3,17 @@ package main
 import (
 	"./entity"
 	"database/sql"
+	"golang.org/x/crypto/bcrypt"
 	"io"
+	"log"
 	"mime/multipart"
 	"os"
 	"path/filepath"
 
 	"./productlist/repository"
 	"./productlist/service"
+	"./users/urepository"
+	"./users/uservice"
 	//_ "github.com/lib/pq"
 	_ "github.com/go-sql-driver/mysql"
 	"html/template"
@@ -20,6 +24,7 @@ import (
 
 var tmpl = template.Must(template.ParseGlob("delivery/web/templates/*.html"))
 var productService *service.ProductService
+var userService *uservice.UserService
 
 func index(w http.ResponseWriter, r *http.Request) {
 
@@ -174,6 +179,53 @@ func login(w http.ResponseWriter, req *http.Request) {
 	_ = tmpl.ExecuteTemplate(w, "login.html", nil)
 }
 
+func Registration(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/registration", http.StatusSeeOther)
+		return
+	}
+	usr := entity.User{}
+	usr.Name = req.FormValue("name")
+	usr.Email = req.FormValue("email")
+	usr.Password = req.FormValue("pass")
+	//usr.Phone = req.FormValue("phone")
+
+	err := userService.StoreUser(usr)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	_ = tmpl.ExecuteTemplate(w, "after.html", usr)
+}
+func Login(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
+		return
+	}
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+
+	log.Println(email)
+	usr, err := userService.User(email)
+
+	//log.Println(usr.Name)
+	//log.Println(usr.Email)
+	//log.Println(usr.Phone)
+	//log.Println(usr.Password)
+
+	err = bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(password))
+	if err != nil {
+		log.Println("Username or Password is incorrect")
+		http.Redirect(w, req, "/Loginpage", 301)
+		return
+	}
+	err = tmpl.ExecuteTemplate(w, "update.html", usr)
+	if err != nil {
+		panic(err.Error())
+	}
+
+}
+
 func writeFile(mf *multipart.File, fname string) {
 
 	wd, err := os.Getwd()
@@ -220,6 +272,9 @@ func main() {
 	proRepo := repository.NewPsqlProductRepository(dbconn)
 	productService = service.NewProductService(proRepo)
 
+	usrRepo := urepository.NewPsqlUserRepository(dbconn)
+	userService = uservice.NewUserService(usrRepo)
+
 	fs := http.FileServer(http.Dir("delivery/web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
@@ -230,7 +285,8 @@ func main() {
 	http.HandleFunc("/seller/products/update", sellerUpdateProducts)
 	http.HandleFunc("/seller/products/delete", sellerDeleteProduct)
 	http.HandleFunc("/registrationpage", regist)
-	http.HandleFunc("/login", login)
+	http.HandleFunc("/Registration", Registration)
+	http.HandleFunc("/login", Login)
 
 	_ = http.ListenAndServe(":8181", nil)
 
