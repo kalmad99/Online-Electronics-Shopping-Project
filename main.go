@@ -3,10 +3,12 @@ package main
 import (
 	"./entity"
 	"database/sql"
+	"fmt"
 	"golang.org/x/crypto/bcrypt"
 	"io"
 	"log"
 	"mime/multipart"
+	"net/smtp"
 	"os"
 	"path/filepath"
 
@@ -21,6 +23,8 @@ import (
 	"strconv"
 	//uuid "github.com/satori/go.uuid"
 )
+var name, email, phone, pass string
+var id int
 
 var tmpl = template.Must(template.ParseGlob("delivery/web/templates/*.html"))
 var productService *service.ProductService
@@ -179,23 +183,65 @@ func login(w http.ResponseWriter, req *http.Request) {
 	_ = tmpl.ExecuteTemplate(w, "login.html", nil)
 }
 
-func Registration(w http.ResponseWriter, req *http.Request) {
+func Registration(w http.ResponseWriter, req *http.Request){
 	if req.Method != "POST" {
-		http.Redirect(w, req, "/registration", http.StatusSeeOther)
+		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
 		return
 	}
 	usr := entity.User{}
 	usr.Name = req.FormValue("name")
 	usr.Email = req.FormValue("email")
-	usr.Password = req.FormValue("pass")
-	//usr.Phone = req.FormValue("phone")
+	usr.Phone = req.FormValue("phone")
+	usr.Password = req.FormValue("password")
 
-	err := userService.StoreUser(usr)
-	if err != nil {
-		panic(err.Error())
+	name = usr.Name
+	email = usr.Email
+	phone = usr.Phone
+	pass = usr.Password
+
+	hostURL := "smtp.gmail.com"
+	hostPort := "587"
+	emailSender := "kalemesfin12go@gmail.com"
+	password := "qnzfgwbnaxykglvu"
+	emailReceiver := usr.Email
+
+	emailAuth := smtp.PlainAuth(
+		"",
+		emailSender,
+		password,
+		hostURL,
+	)
+
+	msg := []byte("To: " + emailReceiver + "\r\n" +
+		"Subject: " + "Hello " + usr.Name + "\r\n" +
+		"This is your OTP. 123456789")
+
+	err:=  smtp.SendMail(
+		hostURL + ":" + hostPort,
+		emailAuth,
+		emailSender,
+		[]string{emailReceiver},
+		msg,
+	)
+
+	if err != nil{
+		fmt.Print("Error: ", err)
 	}
+	fmt.Print("Email Sent")
 
-	_ = tmpl.ExecuteTemplate(w, "after.html", usr)
+	//err = userService.StoreUser(usr)
+	//if err!=nil{
+	//  panic(err.Error())
+	//}
+
+	//_ = tmpl.ExecuteTemplate(w, "Registrationformpart2.html", info)
+	_ = tmpl.ExecuteTemplate(w, "registotp.html", usr)
+
+	//err = userService.StoreUser(usr)
+	//if err!=nil{
+	//  http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
+	//  //panic(err.Error())
+	//}
 }
 func Login(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
