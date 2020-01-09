@@ -243,6 +243,31 @@ func Registration(w http.ResponseWriter, req *http.Request){
 	//  //panic(err.Error())
 	//}
 }
+func Registration2(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST"{
+		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
+		return
+	}
+
+	otp := req.FormValue("otpfield")
+
+	usrinfo := entity.User{uint(id), name, email, phone, pass}
+
+	if otp == "123456789" {
+		//_ = tpl.ExecuteTemplate(w, "update.html", usrinfo)
+		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
+		err := userService.StoreUser(usrinfo)
+		if err!=nil{
+			http.Redirect(w, req, "/Registration2", http.StatusSeeOther)
+			//panic(err.Error())
+		}
+	} else{
+		fmt.Print("Wrong otp")
+		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
+	}
+	http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
+	return
+}
 func Login(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
