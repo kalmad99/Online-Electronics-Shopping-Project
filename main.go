@@ -173,7 +173,25 @@ func regist(w http.ResponseWriter, req *http.Request) {
 func login(w http.ResponseWriter, req *http.Request) {
 	_ = tmpl.ExecuteTemplate(w, "login.html", nil)
 }
+func Registration(w http.ResponseWriter, req *http.Request){
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/registrationpage", http.StatusSeeOther)
+		return
+	}
+	usr := entity.User{}
+	usr.Name = req.FormValue("name")
+	usr.Email = req.FormValue("email")
+	usr.Phone = req.FormValue("phone")
+	usr.Password = req.FormValue("password")
 
+	_ = tmpl.ExecuteTemplate(w, "update.html", usr)
+
+	//err = userService.StoreUser(usr)
+	//if err!=nil{
+	//  http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
+	//  //panic(err.Error())
+	//}
+}
 func writeFile(mf *multipart.File, fname string) {
 
 	wd, err := os.Getwd()

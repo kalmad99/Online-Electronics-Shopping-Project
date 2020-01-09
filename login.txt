@@ -1,0 +1,46 @@
+func (ur *PsqlUserRepository) Login(email string) (entity.User, error) {
+
+	u := entity.User{}
+
+	row := ur.conn.QueryRow("SELECT * FROM users WHERE email=?", email)
+	err := row.Scan(&u.ID, &u.Name, &u.Email, &u.Phone, &u.Password)
+
+	if err != nil {
+		return u, errors.New("username or Password is incorrect")
+	}
+	return u, nil
+}
+userservice and userrepository
+	Login(email string) (entity.User, error)
+
+
+main
+
+func Login(w http.ResponseWriter, req *http.Request){
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
+		return
+	}
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+
+	log.Println(email)
+	usr, err := userService.User(email)
+
+	//log.Println(usr.Name)
+	//log.Println(usr.Email)
+	//log.Println(usr.Phone)
+	//log.Println(usr.Password)
+
+	err = bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(password))
+	if err != nil {
+		log.Println("Username or Password is incorrect")
+		http.Redirect(w, req, "/Loginpage", 301)
+		return
+	}
+	err = tpl.ExecuteTemplate(w, "update.html", usr)
+	if err!=nil{
+		panic(err.Error())
+	}
+
+}
