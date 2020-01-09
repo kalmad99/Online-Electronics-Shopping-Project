@@ -3,13 +3,19 @@ package main
 import (
 	"./entity"
 	"database/sql"
+	"fmt"
+	"golang.org/x/crypto/bcrypt"
 	"io"
+	"log"
 	"mime/multipart"
+	"net/smtp"
 	"os"
 	"path/filepath"
 
 	"./productlist/repository"
 	"./productlist/service"
+	"./users/urepository"
+	"./users/uservice"
 	//_ "github.com/lib/pq"
 	_ "github.com/go-sql-driver/mysql"
 	"html/template"
@@ -17,9 +23,12 @@ import (
 	"strconv"
 	//uuid "github.com/satori/go.uuid"
 )
+var name, email, phone, pass string
+var id int
 
 var tmpl = template.Must(template.ParseGlob("delivery/web/templates/*.html"))
 var productService *service.ProductService
+var userService *uservice.UserService
 
 func index(w http.ResponseWriter, r *http.Request) {
 
@@ -173,9 +182,10 @@ func regist(w http.ResponseWriter, req *http.Request) {
 func login(w http.ResponseWriter, req *http.Request) {
 	_ = tmpl.ExecuteTemplate(w, "login.html", nil)
 }
+
 func Registration(w http.ResponseWriter, req *http.Request){
 	if req.Method != "POST" {
-		http.Redirect(w, req, "/registrationpage", http.StatusSeeOther)
+		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
 		return
 	}
 	usr := entity.User{}
@@ -184,7 +194,48 @@ func Registration(w http.ResponseWriter, req *http.Request){
 	usr.Phone = req.FormValue("phone")
 	usr.Password = req.FormValue("password")
 
-	_ = tmpl.ExecuteTemplate(w, "update.html", usr)
+	name = usr.Name
+	email = usr.Email
+	phone = usr.Phone
+	pass = usr.Password
+
+	hostURL := "smtp.gmail.com"
+	hostPort := "587"
+	emailSender := "kalemesfin12go@gmail.com"
+	password := "qnzfgwbnaxykglvu"
+	emailReceiver := usr.Email
+
+	emailAuth := smtp.PlainAuth(
+		"",
+		emailSender,
+		password,
+		hostURL,
+	)
+
+	msg := []byte("To: " + emailReceiver + "\r\n" +
+		"Subject: " + "Hello " + usr.Name + "\r\n" +
+		"This is your OTP. 123456789")
+
+	err:=  smtp.SendMail(
+		hostURL + ":" + hostPort,
+		emailAuth,
+		emailSender,
+		[]string{emailReceiver},
+		msg,
+	)
+
+	if err != nil{
+		fmt.Print("Error: ", err)
+	}
+	fmt.Print("Email Sent")
+
+	//err = userService.StoreUser(usr)
+	//if err!=nil{
+	//  panic(err.Error())
+	//}
+
+	//_ = tmpl.ExecuteTemplate(w, "Registrationformpart2.html", info)
+	_ = tmpl.ExecuteTemplate(w, "registotp.html", usr)
 
 	//err = userService.StoreUser(usr)
 	//if err!=nil{
@@ -192,6 +243,35 @@ func Registration(w http.ResponseWriter, req *http.Request){
 	//  //panic(err.Error())
 	//}
 }
+func Login(w http.ResponseWriter, req *http.Request) {
+	if req.Method != "POST" {
+		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
+		return
+	}
+	email := req.FormValue("email")
+	password := req.FormValue("password")
+
+	log.Println(email)
+	usr, err := userService.User(email)
+
+	//log.Println(usr.Name)
+	//log.Println(usr.Email)
+	//log.Println(usr.Phone)
+	//log.Println(usr.Password)
+
+	err = bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(password))
+	if err != nil {
+		log.Println("Username or Password is incorrect")
+		http.Redirect(w, req, "/Loginpage", 301)
+		return
+	}
+	err = tmpl.ExecuteTemplate(w, "update.html", usr)
+	if err != nil {
+		panic(err.Error())
+	}
+
+}
+
 func writeFile(mf *multipart.File, fname string) {
 
 	wd, err := os.Getwd()
@@ -238,6 +318,9 @@ func main() {
 	proRepo := repository.NewPsqlProductRepository(dbconn)
 	productService = service.NewProductService(proRepo)
 
+	usrRepo := urepository.NewPsqlUserRepository(dbconn)
+	userService = uservice.NewUserService(usrRepo)
+
 	fs := http.FileServer(http.Dir("delivery/web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
@@ -248,7 +331,8 @@ func main() {
 	http.HandleFunc("/seller/products/update", sellerUpdateProducts)
 	http.HandleFunc("/seller/products/delete", sellerDeleteProduct)
 	http.HandleFunc("/registrationpage", regist)
-	http.HandleFunc("/login", login)
+	http.HandleFunc("/Registration", Registration)
+	http.HandleFunc("/login", Login)
 
 	_ = http.ListenAndServe(":8181", nil)
 
