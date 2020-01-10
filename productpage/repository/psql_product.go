@@ -4,9 +4,10 @@ import (
 	"../../entity"
 	"database/sql"
 	"errors"
+	"log"
 )
 
-// PsqlProductRepository implements the productlist.ProductRepository interface
+// PsqlProductRepository implements the productpage.ProductRepository interface
 type PsqlProductRepository struct {
 	conn *sql.DB
 }
@@ -93,3 +94,57 @@ func (pr *PsqlProductRepository) StoreProduct(c entity.Product) error {
 
 	return nil
 }
+
+//Searches for the product
+func (pr *PsqlProductRepository) SearchProduct(index string) ([]entity.Product, error) {
+	//query := "SELECT * FROM products WHERE itemname LIKE ?"
+	//rows, err := pr.conn.Query(query, "'%'" + index + "%'")
+	rows, err := pr.conn.Query("SELECT * FROM products WHERE itemname LIKE ?", "%"+index+"%")
+	//rows, err := pr.conn.Query("SELECT * FROM products WHERE name LIKE $1", "%" + index + "%" )
+	if err != nil {
+		//panic(err.Error())
+		log.Println(err)
+		errors.New("Could not query the database")
+	}
+	defer rows.Close()
+
+	prds := []entity.Product{}
+
+	for rows.Next() {
+		product := entity.Product{}
+		//err = rows.Scan(&product.ID, &product.Name, &product.ItemType,
+		//	&product.Quantity, &product.Price, &product.Description, &product.Image,
+		//	&product.Rating, &product.RatersCount)
+
+		err = rows.Scan(&product.ID, &product.Name,
+			&product.Quantity, &product.Price, &product.Description, &product.Image,
+			&product.Rating, &product.RatersCount)
+		if err != nil {
+			return nil, err
+		}
+		prds = append(prds, product)
+	}
+	return prds, nil
+}
+
+//func (pri *ProductRepositoryImpl) RateProduct(p entity.Product) (entity.Product, error) {
+//
+//	var oldratings float64
+//	var oldcount float64
+//
+//	//_ = pri.conn.QueryRow("SELECT rating, raterscount FROM products WHERE id = ?", c.ID).Scan(&oldratings, &oldcount)
+//	_ = pri.conn.QueryRow("SELECT rating, raterscount FROM products WHERE id = $1", p.ID).Scan(&oldratings, &oldcount)
+//
+//	var newratings = ((oldratings*oldcount) + p.Rating)/(oldcount+1)
+//
+//	//_, err := pri.conn.Exec("UPDATE products SET rating=?,raterscount=? WHERE id=?",
+//	//	float64(math.Round(newratings*2))/2, oldcount+1, c.ID)
+//
+//	_, err := pri.conn.Exec("UPDATE products SET rating=$1,raterscount=$2 WHERE id=$3",
+//		float64(math.Round(newratings*2))/2, oldcount+1, p.ID)
+//	if err != nil {
+//		return p, errors.New("Updating Rate has failed")
+//	}
+//
+//	return p, nil
+//}

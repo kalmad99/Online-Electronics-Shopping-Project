@@ -1,4 +1,4 @@
-package productlist
+package productpage
 
 import (
 	"../entity"
@@ -11,4 +11,6 @@ type ProductRepository interface {
 	UpdateProduct(product entity.Product) error
 	DeleteProduct(id int) error
 	StoreProduct(product entity.Product) error
+	//RateProduct(product entity.Product) (entity.Product, []error)
+	SearchProduct(index string) ([]entity.Product, error)
 }

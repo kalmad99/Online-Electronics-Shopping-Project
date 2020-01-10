@@ -2,16 +2,16 @@ package service
 
 import (
 	"../../entity"
-	"../../productlist"
+	"../../productpage"
 )
 
-// ProductService implements productlist.ProductService interface
+// ProductService implements productpage.ProductService interface
 type ProductService struct {
-	productRepo productlist.ProductRepository
+	productRepo productpage.ProductRepository
 }
 
 // NewProductService will create new ProductService object
-func NewProductService(ProRepo productlist.ProductRepository) *ProductService {
+func NewProductService(ProRepo productpage.ProductRepository) *ProductService {
 	return &ProductService{productRepo: ProRepo}
 }
 
@@ -73,3 +73,22 @@ func (ps *ProductService) DeleteProduct(id int) error {
 	}
 	return nil
 }
+
+func (ps *ProductService) SearchProduct(index string) ([]entity.Product, error) {
+	products, err := ps.productRepo.SearchProduct(index)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return products, nil
+}
+
+//func (ps *ProductService) RateProduct(pro entity.Product) (entity.Product, []error) {
+//
+//	prowithrate, err := ps.productRepo.RateProduct(pro)
+//	if err != nil {
+//		return prowithrate, err
+//	}
+//	return prowithrate, nil
+//}
