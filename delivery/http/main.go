@@ -1,7 +1,7 @@
-package main
+package http
 
 import (
-	"./entity"
+	"../../entity"
 	"database/sql"
 	"fmt"
 	"golang.org/x/crypto/bcrypt"
@@ -12,16 +12,16 @@ import (
 	"os"
 	"path/filepath"
 
-	"./productlist/repository"
-	"./productlist/service"
-	"./users/urepository"
-	"./users/uservice"
+	"../../productpage/repository"
+	"../../productpage/service"
+	"../../users/urepository"
+	"../../users/uservice"
 	//_ "github.com/lib/pq"
 	_ "github.com/go-sql-driver/mysql"
 	"html/template"
 	"net/http"
-	"strconv"
 	//uuid "github.com/satori/go.uuid"
+	"../http/handler"
 )
 
 var name, email, phone, pass string
@@ -51,129 +51,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func seller(w http.ResponseWriter, r *http.Request) {
 	tmpl.ExecuteTemplate(w, "seller.index.layout", nil)
-}
-
-func indexProducts(w http.ResponseWriter, r *http.Request) {
-	products, err := productService.Products()
-	if err != nil {
-		panic(err)
-	}
-	_ = tmpl.ExecuteTemplate(w, "seller.products.layout", products)
-}
-
-func sellerNewProducts(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method == http.MethodPost {
-
-		ctg := entity.Product{}
-		ctg.Name = r.FormValue("name")
-		ctg.Quantity, _ = strconv.Atoi(r.FormValue("quantity"))
-		ctg.ItemType = r.FormValue("type")
-		ctg.Price, _ = strconv.ParseFloat(r.FormValue("price"), 64)
-		ctg.Description = r.FormValue("description")
-
-		mf, fh, err := r.FormFile("catimg")
-		if err != nil {
-			panic(err)
-		}
-		defer mf.Close()
-
-		ctg.Image = fh.Filename
-
-		writeFile(&mf, fh.Filename)
-
-		err = productService.StoreProduct(ctg)
-
-		if err != nil {
-			_, _ = w.Write([]byte("Data Creation has failed or the item already exists"))
-			panic(err)
-		}
-
-		http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
-
-	} else {
-
-		err := tmpl.ExecuteTemplate(w, "seller.product.new.layout", nil)
-
-		if err != nil {
-			panic(err)
-		}
-
-	}
-}
-
-func sellerUpdateProducts(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method == http.MethodGet {
-
-		idRaw := r.URL.Query().Get("id")
-		id, err := strconv.Atoi(idRaw)
-
-		if err != nil {
-			panic(err)
-		}
-
-		cat, err := productService.Product(id)
-
-		if err != nil {
-			panic(err)
-		}
-
-		_ = tmpl.ExecuteTemplate(w, "seller.products.update.layout", cat)
-
-	} else if r.Method == http.MethodPost {
-
-		prod := entity.Product{}
-		prod.ID, _ = strconv.Atoi(r.FormValue("id"))
-		prod.Name = r.FormValue("name")
-		prod.Description = r.FormValue("description")
-		prod.Image = r.FormValue("image")
-
-		mf, _, err := r.FormFile("catimg")
-
-		if err != nil {
-			panic(err)
-		}
-
-		defer mf.Close()
-
-		writeFile(&mf, prod.Image)
-
-		err = productService.UpdateProduct(prod)
-
-		if err != nil {
-			panic(err)
-		}
-
-		http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
-
-	} else {
-		http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
-	}
-
-}
-
-func sellerDeleteProduct(w http.ResponseWriter, r *http.Request) {
-
-	if r.Method == http.MethodGet {
-
-		idRaw := r.URL.Query().Get("id")
-
-		id, err := strconv.Atoi(idRaw)
-
-		if err != nil {
-			panic(err)
-		}
-
-		err = productService.DeleteProduct(id)
-
-		if err != nil {
-			panic(err)
-		}
-
-	}
-
-	http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
 }
 
 func regist(w http.ResponseWriter, req *http.Request) {
@@ -340,9 +217,12 @@ func main() {
 	if err := dbconn.Ping(); err != nil {
 		panic(err)
 	}
+	productRepo := repository.NewPsqlProductRepository(dbconn)
+	productServ := service.NewProductService(productRepo)
+	sellerProHandler := handler.NewSellerProductHandler(tmpl, productServ)
 
-	proRepo := repository.NewPsqlProductRepository(dbconn)
-	productService = service.NewProductService(proRepo)
+	//proRepo := repository.NewPsqlProductRepository(dbconn)
+	//productService = service.NewProductService(proRepo)
 
 	usrRepo := urepository.NewPsqlUserRepository(dbconn)
 	userService = uservice.NewUserService(usrRepo)
@@ -352,10 +232,10 @@ func main() {
 
 	http.HandleFunc("/", index)
 	http.HandleFunc("/seller", seller)
-	http.HandleFunc("/seller/products", indexProducts)
-	http.HandleFunc("/seller/products/new", sellerNewProducts)
-	http.HandleFunc("/seller/products/update", sellerUpdateProducts)
-	http.HandleFunc("/seller/products/delete", sellerDeleteProduct)
+	http.HandleFunc("/seller/products", sellerProHandler.SellerProducts)
+	http.HandleFunc("/seller/products/new", sellerProHandler.SellerProductsNew)
+	http.HandleFunc("/seller/products/update", sellerProHandler.SellerProductsUpdate)
+	http.HandleFunc("/seller/products/delete", sellerProHandler.SellerProductsDelete)
 	http.HandleFunc("/registrationpage", regist)
 	http.HandleFunc("/Registration", Registration)
 	http.HandleFunc("/login", Login)
