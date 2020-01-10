@@ -23,6 +23,7 @@ import (
 	"strconv"
 	//uuid "github.com/satori/go.uuid"
 )
+
 var name, email, phone, pass string
 var id int
 
@@ -183,7 +184,7 @@ func login(w http.ResponseWriter, req *http.Request) {
 	_ = tmpl.ExecuteTemplate(w, "login.html", nil)
 }
 
-func Registration(w http.ResponseWriter, req *http.Request){
+func Registration(w http.ResponseWriter, req *http.Request) {
 	if req.Method != "POST" {
 		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
 		return
@@ -216,15 +217,15 @@ func Registration(w http.ResponseWriter, req *http.Request){
 		"Subject: " + "Hello " + usr.Name + "\r\n" +
 		"This is your OTP. 123456789")
 
-	err:=  smtp.SendMail(
-		hostURL + ":" + hostPort,
+	err := smtp.SendMail(
+		hostURL+":"+hostPort,
 		emailAuth,
 		emailSender,
 		[]string{emailReceiver},
 		msg,
 	)
 
-	if err != nil{
+	if err != nil {
 		fmt.Print("Error: ", err)
 	}
 	fmt.Print("Email Sent")
@@ -244,7 +245,7 @@ func Registration(w http.ResponseWriter, req *http.Request){
 	//}
 }
 func Registration2(w http.ResponseWriter, req *http.Request) {
-	if req.Method != "POST"{
+	if req.Method != "POST" {
 		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
 		return
 	}
@@ -257,11 +258,11 @@ func Registration2(w http.ResponseWriter, req *http.Request) {
 		//_ = tpl.ExecuteTemplate(w, "update.html", usrinfo)
 		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
 		err := userService.StoreUser(usrinfo)
-		if err!=nil{
+		if err != nil {
 			http.Redirect(w, req, "/Registration2", http.StatusSeeOther)
 			//panic(err.Error())
 		}
-	} else{
+	} else {
 		fmt.Print("Wrong otp")
 		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
 	}
@@ -325,10 +326,10 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
-	//fmt.Println("Successfully connected to Mysql")
+	fmt.Println("Successfully connected to Mysql")
 	//return dbconn
 
-	//dbconn, err := sql.Open("postgres", "postgres://app_admin:P@$$w0rdD2@localhost/golangtrialdb?sslmode=disable")
+	//dbconn, err := sql.Open("postgres", "postgres://postgres:Dadusha99@localhost/restaurantdb2?sslmode=disable")
 	//
 	//if err != nil {
 	//	panic(err)
