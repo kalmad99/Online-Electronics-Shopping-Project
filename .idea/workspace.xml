@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7d81e444-db33-4f4d-880a-0c291d7891e1" name="Default Changelist" comment="added product handler">
+    <list default="true" id="869b21c9-389a-4f63-8d8e-be3fdb89f87e" name="Default Changelist" comment="added product handler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/delivery/http/handler/product_handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/delivery/http/handler/user_handler.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/entity/users.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/css/bootstrap.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/css/dashboard.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/css/rateformat.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/css/ratings.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/css/registr.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/css/style.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/images/account-image-placeholder.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/images/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/images/logo-light.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/images/logo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/images/payment-support.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/images/plus-sign.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/img/huawei.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/img/inifinix.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/img/iphonex.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/img/lenovo x1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/img/samsung note 8.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/js/bootstrap.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/js/jquery-3.4.1.min.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/js/ratingformat.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/js/ratings.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/assets/js/select.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/Registrationform.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/after.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/contact.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/footer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/login.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/navbar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/seller.footer.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/seller.index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/seller.navbar.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/seller.product.new.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/seller.product.update.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/seller.products.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ui/web/templates/sellers.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/repository.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/service.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/urepository/psql_user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/uservice/user_service.go" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,47 +55,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/repository.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="12" selection-start-line="12" selection-end-line="12" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="200">
-              <caret line="32" selection-start-line="32" selection-end-line="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/uservice/user_service.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1200">
-              <caret line="63" selection-start-line="63" selection-end-line="63" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/users/urepository/psql_user.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1440">
-              <caret line="77" selection-start-line="77" selection-end-line="77" />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/delivery/http/handler/product_handler.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="20">
-              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            <state relative-caret-position="163">
+              <caret line="209" column="46" selection-start-line="209" selection-start-column="46" selection-end-line="209" selection-end-column="46" />
+              <folding>
+                <element signature="e#17#158#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -122,9 +132,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
+    <option name="x" value="-9" />
+    <option name="y" value="-9" />
+    <option name="width" value="1383" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectView">
@@ -157,28 +167,6 @@
               <item name="http" type="462c0819:PsiDirectoryNode" />
               <item name="handler" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-              <item name="urepository" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
-              <item name="users" type="462c0819:PsiDirectoryNode" />
-              <item name="uservice" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -197,7 +185,7 @@
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/delivery/http/main.go" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
@@ -219,16 +207,30 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Go Build.go build C:/Users/Kaleb/go/src/github.com/kalmad99/Online-Electronics-Shopping-Project/delivery/http">
+    <configuration name="go build C:/Users/Kaleb/go/src/github.com/kalmad99/Online-Electronics-Shopping-Project/delivery/http" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
+      <module name="Online-Electronics-Shopping-Project" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <go_parameters value="-i" />
+      <kind value="PACKAGE" />
+      <filePath value="$PROJECT_DIR$/|C:\Users\Kaleb\go\src\github.com\kalmad99\Online-Electronics-Shopping-Project\delivery\http\main.go" />
+      <package value="$PROJECT_DIR$/delivery/http" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="Online-Electronics-Shopping-Project" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/main.go" />
+      <filePath value="$PROJECT_DIR$/main.go|C:\Users\Kaleb\go\src\github.com\kalmad99\Online-Electronics-Shopping-Project\delivery\http\main.go" />
       <package value="github.com/kalmad99/Online-Electronics-Shopping-Project" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <list>
+      <item itemvalue="Go Build.go build C:/Users/Kaleb/go/src/github.com/kalmad99/Online-Electronics-Shopping-Project/delivery/http" />
+      <item itemvalue="Go Build.go build main.go" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go" />
@@ -237,23 +239,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24939272" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2534413" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49848714" weight="0.32517484" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49924356" weight="0.32733223" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49878544" visible="true" weight="0.32692307" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49848714" weight="0.32733223" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4979757" weight="0.32692307" />
       <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49621785" weight="0.32569557" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5015129" side_tool="true" visible="true" weight="0.32569557" />
-      <window_info active="true" anchor="bottom" id="Messages" order="12" sideWeight="0.4977307" visible="true" weight="0.32517484" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50121456" side_tool="true" weight="0.32692307" />
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4977307" weight="0.32517484" />
       <window_info anchor="bottom" id="Inspection Results" order="13" sideWeight="0.49924356" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -309,20 +312,8 @@
     <entry file="file://$PROJECT_DIR$/users/services/user_service.go" />
     <entry file="file://$PROJECT_DIR$/users/repos/psqluser.go" />
     <entry file="file://$PROJECT_DIR$/users/repos.go" />
-    <entry file="file://$PROJECT_DIR$/login.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/service.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/login.txt" />
+    <entry file="file://$PROJECT_DIR$/users/service.go" />
     <entry file="file://$PROJECT_DIR$/users/services.go" />
     <entry file="file://$PROJECT_DIR$/entity/users.go.983890059" />
     <entry file="file://$PROJECT_DIR$/README.md" />
@@ -330,20 +321,8 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/ui/web/assets/css/plugins.css" />
-    <entry file="file://$PROJECT_DIR$/ui/web/templates/navbar.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-434">
-          <caret line="26" column="58" lean-forward="true" selection-start-line="26" selection-start-column="58" selection-end-line="26" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/entity/users.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ui/web/templates/navbar.html" />
+    <entry file="file://$PROJECT_DIR$/entity/users.go" />
     <entry file="file://$PROJECT_DIR$/productpage/repository.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="140">
@@ -353,7 +332,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/productpage/service.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
+        <state relative-caret-position="140">
           <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
           <folding>
             <element signature="e#21#44#0" expanded="true" />
@@ -363,25 +342,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/productpage/repository/psql_product.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-680">
+        <state relative-caret-position="40">
           <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/delivery/http/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4240">
+        <state relative-caret-position="4300">
           <caret line="237" column="84" selection-start-line="237" selection-start-column="84" selection-end-line="237" selection-end-column="84" />
-          <folding>
-            <element signature="e#14#389#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/productpage/service/product_service.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="49" column="5" lean-forward="true" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
+        <state relative-caret-position="297">
+          <caret line="49" column="5" selection-start-line="49" selection-start-column="5" selection-end-line="49" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -392,38 +368,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/users/repository.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="32" selection-start-line="32" selection-end-line="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/uservice/user_service.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1200">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/users/urepository/psql_user.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1440">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/users/repository.go" />
+    <entry file="file://$PROJECT_DIR$/main.go" />
+    <entry file="file://$PROJECT_DIR$/users/uservice/user_service.go" />
+    <entry file="file://$PROJECT_DIR$/users/urepository/psql_user.go" />
     <entry file="file://$PROJECT_DIR$/delivery/http/handler/product_handler.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
+        <state relative-caret-position="163">
+          <caret line="209" column="46" selection-start-line="209" selection-start-column="46" selection-end-line="209" selection-end-column="46" />
+          <folding>
+            <element signature="e#17#158#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
