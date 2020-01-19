@@ -1,4 +1,4 @@
-package http
+package main
 
 import (
 	"../../entity"
@@ -27,7 +27,7 @@ import (
 var name, email, phone, pass string
 var id int
 
-var tmpl = template.Must(template.ParseGlob("delivery/web/templates/*.html"))
+var tmpl = template.Must(template.ParseGlob("../../ui/web/templates/*.html"))
 var productService *service.ProductService
 var userService *uservice.UserService
 
@@ -227,7 +227,7 @@ func main() {
 	usrRepo := urepository.NewPsqlUserRepository(dbconn)
 	userService = uservice.NewUserService(usrRepo)
 
-	fs := http.FileServer(http.Dir("delivery/web/assets"))
+	fs := http.FileServer(http.Dir("ui/web/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	http.HandleFunc("/", index)
