@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart</title>
+</head>
+<body>
+    {{range .}}
+    <div class="row align-items-center">
+        <div class="col-lg-3 mx-auto ">
+            <img src="/assets/img/{{ .Image }}" width=200px height="200px" />
+        </div>
+        <div class="col-lg-7 mx-auto">
+            <div class="card-body">
+                <h3 class="card-title" style="font-weight: bold"><a href="/detail?id={{ .ID }}">{{ .Name }}</a></h3>
+                {{/*                    <h6 class="text-primary">By {{ .Seller }}</h6>*/}}
+                <hr>
+                <h5 class="card-text">
+                    <span>Price: </span>
+                    <span class="text-danger">ETB {{ .Price }}</span>
+                </h5>
+                <h3 class="card-text" style="font-weight: bold">Quantity: {{ .Quantity }}</h3>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {{else}}
+        <h2>No Items in Cart yet</h2>
+    {{end}}
+    <a href="/">Continue Shopping</a>
+    <a href="/cart/buy">Procceed to Checkout</a>
+    </body>
+</html>

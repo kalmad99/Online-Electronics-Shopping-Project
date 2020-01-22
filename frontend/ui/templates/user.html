@@ -1,0 +1,36 @@
+{{ define "admin.user.layout" }}
+    {{ template "admin.navbar" . }}
+    {{ template "admin.user.content" . }}
+    {{ template "admin.footer" . }}
+{{ end }}
+
+{{ define "admin.user.content"}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+                {{ range . }}
+                <tr>
+					<th scope="row"> {{ .ID }} </th>
+					<td> {{ .Name }} </td>
+					<td> {{ .Email }} </td>
+					<td> {{ .Phone }} </td>
+					<td> <a href="/user/update?id={{ .ID }}">Edit</a> </td>
+                    <td> <a href="/user/delete?id={{ .ID }}">Delete</a> </td>
+                    <td> <a href="/user/changepass?id={{ .ID }}">ChangePass</a> </td>
+				</tr>
+                {{end}}
+            </tbody>
+        </table>
+    </main>
+{{ end }}

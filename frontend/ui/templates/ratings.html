@@ -1,0 +1,27 @@
+<!Doctype html>
+<html>
+    <head>
+        <meta charset = "utf-8">
+        <link rel="stylesheet" href="../assets/css/rating.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <form action="/rate?id={{ .ID }}" method="POST">
+            <div class="rating">
+                <input type="hidden" name="id" id="id" value="{{.ID}}"/>
+                <input type="radio" name="star" id="star5" value="5"><label for="star5"></label>
+                <input type="radio" name="star" id="star4" value="4"><label for="star4"></label>
+                <input type="radio" name="star" id="star3" value="3"><label for="star3"></label>
+                <input type="radio" name="star" id="star2" value="2"><label for="star2"></label>
+                <input type="radio" name="star" id="star1" value="1"><label for="star1"></label>
+            </div>
+            <div class="ratingsub">
+                <input type="submit" value="save">
+                <input style="display: none;" type="text" name="rate" id="rate">
+            </div>
+        </form>
+        <script src="../assets/js/jquery-3.4.1.min.js"></script>
+        <script src="../assets/js/ratings.js"></script>
+    </body>
+</html>
+
