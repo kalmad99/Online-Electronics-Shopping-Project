@@ -1,8 +1,7 @@
 package cart
 
 import (
-	"../../entity"
-	//"context"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 )
 
 type CartService interface {

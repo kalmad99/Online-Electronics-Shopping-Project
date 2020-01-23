@@ -3,6 +3,12 @@ package handler
 import (
 	"context"
 	"fmt"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/permission"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/session"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
 	"golang.org/x/crypto/bcrypt"
 	"html/template"
 	"log"
@@ -11,13 +17,6 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
-
-	"../../../allEntitiesAction/user"
-	"../../../authFiles/csrfToken"
-	"../../../authFiles/permission"
-	"../../../authFiles/session"
-	"../../../entity"
-	"../../../frontend/form"
 )
 
 // UserHandler handler handles user related requests

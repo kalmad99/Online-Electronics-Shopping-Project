@@ -5,26 +5,26 @@ import (
 	"net/http"
 	"time"
 
-	"../../authFiles/csrfToken"
-	"../../entity"
-	"./handler"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/Delivery/http/handler"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 
-	prepim "../../allEntitiesAction/productpage/repository"
-	psrvim "../../allEntitiesAction/productpage/service"
+	prepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/productpage/repository"
+	psrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/productpage/service"
 
-	urepimp "../../allEntitiesAction/user/repository"
-	usrvimp "../../allEntitiesAction/user/service"
+	urepimp "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user/repository"
+	usrvimp "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user/service"
 
-	crepim "../../allEntitiesAction/cart/repository"
-	csrvim "../../allEntitiesAction/cart/service"
+	crepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart/repository"
+	csrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart/service"
 )
 
 func createTables(dbconn *gorm.DB) []error {
-	//errs := dbconn.CreateTable(&entity.User{}, &entity.Role{}, &entity.Session{}, &entity.Product{}, &entity.order{}, &entity.Category{}).GetErrors()
-	errs := dbconn.CreateTable(&entity.Product{}).GetErrors()
+	errs := dbconn.CreateTable(&entity.User{}, &entity.Role{}, &entity.Session{}, &entity.Product{}, &entity.Bank{}, &entity.Category{}).GetErrors()
+	//errs := dbconn.CreateTable(&entity.Bank{}).GetErrors()
 	if errs != nil {
 		return errs
 	}

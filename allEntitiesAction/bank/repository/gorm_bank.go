@@ -1,9 +1,10 @@
 package repository
 
 import (
-	"../../../entity"
-	"../../bank"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+
 	"github.com/jinzhu/gorm"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/bank"
 )
 
 // BankGormRepo implements the bank.BankRepository interface

@@ -2,7 +2,8 @@ package service
 
 import (
 	//"../../../entity"
-	"../../bank"
+	//"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/bank"
 )
 
 // BankService implements menu.OrderService interface

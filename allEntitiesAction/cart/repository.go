@@ -1,7 +1,7 @@
 package cart
 
 import (
-	"../../entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 )
 
 type CartRepository interface {

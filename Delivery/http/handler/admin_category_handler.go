@@ -1,6 +1,10 @@
 package handler
 
 import (
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/productpage"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
 	"html/template"
 	"io"
 	"log"
@@ -11,10 +15,7 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"../../../allEntitiesAction/productpage"
-	"../../../authFiles/csrfToken"
-	"../../../entity"
-	"../../../frontend/form"
+
 )
 
 // AdminCategoryHandler handles category handler admin requests

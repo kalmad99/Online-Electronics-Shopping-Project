@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"../../../allEntitiesAction/cart"
-	"../../../authFiles/csrfToken"
-	"../../../entity"
-	"../../../frontend/form"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
 	"html/template"
 	"net/http"
 	"net/url"

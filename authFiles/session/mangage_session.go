@@ -3,11 +3,10 @@ package session
 import (
 	"errors"
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
 	"net/http"
 	"time"
-
-	"../csrfToken"
-	"github.com/dgrijalva/jwt-go"
 )
 
 // Create creates and sets session cookie

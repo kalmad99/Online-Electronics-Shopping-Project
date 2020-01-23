@@ -1,10 +1,10 @@
 package repository
 
 import (
-	"../../../entity"
-	"../../productpage"
 	"errors"
 	"github.com/jinzhu/gorm"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/productpage"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 	"log"
 	"math"
 )

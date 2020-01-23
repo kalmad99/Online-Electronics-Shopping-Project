@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"../../../entity"
-	"../../order"
 	"github.com/jinzhu/gorm"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/order"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 )
 
 // OrderGormRepo implements the menu.OrderRepository interface

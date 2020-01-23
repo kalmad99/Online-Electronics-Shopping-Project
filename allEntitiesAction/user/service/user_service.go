@@ -1,8 +1,8 @@
 package service
 
 import (
-	"../../../entity"
-	"../../user"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 )
 
 // UserService implements menu.UserService interface

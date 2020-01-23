@@ -3,8 +3,7 @@ package repository
 import (
 	"database/sql"
 	"errors"
-
-	"../../../entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 )
 
 // RoleRepositoryImpl implements RoleRepository interface

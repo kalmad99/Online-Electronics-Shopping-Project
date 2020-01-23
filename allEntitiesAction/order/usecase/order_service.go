@@ -1,8 +1,8 @@
 package service
 
 import (
-	"../../../entity"
-	"../../order"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/order"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 )
 
 // OrderService implements menu.OrderService interface

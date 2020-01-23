@@ -1,6 +1,8 @@
 package order
 
-import "../../entity"
+import (
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+)
 
 // OrderRepository specifies customer menu order related database operations
 type OrderRepository interface {

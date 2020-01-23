@@ -1,6 +1,6 @@
 package productpage
 
-import "../../entity"
+import "github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 
 // CategoryRepository specifies food menu category database operations
 type CategoryRepository interface {

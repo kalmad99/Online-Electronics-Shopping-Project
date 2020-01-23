@@ -1,16 +1,15 @@
 package handler
 
 import (
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/productpage"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
 	"html/template"
 	"log"
 	"net/http"
 	"net/url"
 	"strconv"
-
-	"../../../allEntitiesAction/productpage"
-	"../../../authFiles/csrfToken"
-	"../../../entity"
-	"../../../frontend/form"
 )
 
 var outid, categoid uint

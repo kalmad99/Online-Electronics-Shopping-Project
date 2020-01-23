@@ -1,9 +1,9 @@
 package repository
 
 import (
-	"../../../entity"
 	"database/sql"
 	"errors"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
 	"log"
 	"math"
 	//"math"

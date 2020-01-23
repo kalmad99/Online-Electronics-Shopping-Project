@@ -1,14 +1,14 @@
 package handler
 
 import (
-	"../../../authFiles/csrfToken"
-	"../../../entity"
-	"../../../frontend/form"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/productpage"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
 	"html/template"
 	"net/http"
 	"net/url"
 
-	"../../../allEntitiesAction/productpage"
 )
 
 // MenuHandler handles menu related requests
@@ -43,7 +43,7 @@ func (mh *MenuHandler) Index(w http.ResponseWriter, r *http.Request) {
 	if len(errs) > 0 {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
-	tmplData := struct {
+		tmplData := struct {
 		Values   url.Values
 		VErrors  form.ValidationErrors
 		Products []entity.Product
