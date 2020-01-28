@@ -6,10 +6,11 @@ import (
 
 type CartRepository interface {
 	GetCarts() ([]entity.Cart, []error)
-	GetSingleCart(id uint) (*entity.Cart, []error)
-	GetUserCart(user *entity.User) (*entity.Cart, []error)
+	GetSingleCart(id uint) ([]entity.Cart, []error)
+	GetUserCart(user *entity.User) ([]entity.Product, []error)
+	//GetUserCart(user *entity.User) (*entity.Cart, []error)
 	AddtoCart(cart *entity.Cart) (*entity.Cart, []error)
-	DeleteCart(id uint) (*entity.Cart, []error)
+	DeleteCart(user *entity.User) (*entity.Cart, []error)
 	UpdateCart(cart *entity.Cart) (*entity.Cart, []error)
 
 	//CartByID(ctx context.Context, id uint) (*entity.Cart, error)

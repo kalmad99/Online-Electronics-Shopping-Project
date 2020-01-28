@@ -26,22 +26,30 @@ func (cs *CartService) GetCarts() ([]entity.Cart, []error) {
 	return ords, nil
 }
 
-func (cs *CartService) GetSingleCart(id uint) (*entity.Cart, []error) {
-	ord, errs := cs.CartRepo.GetSingleCart(id)
+func (cs *CartService) GetSingleCart(id uint) ([]entity.Cart, []error) {
+	crts, errs := cs.CartRepo.GetSingleCart(id)
 	if len(errs) > 0 {
 		return nil, errs
 	}
-	return ord, nil
+	return crts, nil
 }
 
-func (cs *CartService) GetUserCart(user *entity.User) (*entity.Cart, []error) {
-	crt, errs := cs.CartRepo.GetUserCart(user)
+func (cs *CartService) GetUserCart(user *entity.User) ([]entity.Product, []error) {
+	prds, errs := cs.CartRepo.GetUserCart(user)
 	if len(errs) > 0 {
 		return nil, errs
 	}
-	return crt, nil
+	return prds, nil
 
 }
+//func (cs *CartService) GetUserCart(user *entity.User) (*entity.Cart, []error) {
+//	crt, errs := cs.CartRepo.GetUserCart(user)
+//	if len(errs) > 0 {
+//		return nil, errs
+//	}
+//	return crt, nil
+//
+//}
 
 func (cs *CartService) AddtoCart(cart *entity.Cart) (*entity.Cart, []error) {
 	crt, errs := cs.CartRepo.AddtoCart(cart)
@@ -51,8 +59,8 @@ func (cs *CartService) AddtoCart(cart *entity.Cart) (*entity.Cart, []error) {
 	return crt, nil
 }
 
-func (cs *CartService) DeleteCart(id uint) (*entity.Cart, []error) {
-	crt, errs := cs.CartRepo.DeleteCart(id)
+func (cs *CartService) DeleteCart(usr *entity.User) (*entity.Cart, []error) {
+	crt, errs := cs.CartRepo.DeleteCart(usr)
 	if len(errs) > 0 {
 		return nil, errs
 	}

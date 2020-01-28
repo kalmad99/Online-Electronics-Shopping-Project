@@ -73,6 +73,7 @@ func main() {
 
 	sess := ConfigSessions()
 	uh := handler.NewUserHandler(tmpl, userServ, sessionSrv, roleServ, sess, csrfSignKey)
+	ch := handler.NewCartHandler(tmpl, cartServ, userServ, sessionSrv, roleServ, sess, itemServ, csrfSignKey)
 
 	fs := http.FileServer(http.Dir("../../frontend/ui/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
@@ -111,6 +112,15 @@ func main() {
 
 	http.Handle("/admin/carts", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetCarts))))
 	http.Handle("/admin/cart", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetSingleCart))))
+
+	http.Handle("/getusercart", uh.Authenticated(http.HandlerFunc(ch.GetUserCart)))
+	//http.HandleFunc("/getusercart", ch.GetUserCart)
+	http.Handle("/deleteitemcart", uh.Authenticated(http.HandlerFunc(ch.UpdateCart)))
+	//http.HandleFunc("/deleteitemcart", ch.UpdateCart)
+
+	//http.HandleFunc("/addtocart", ch.AddtoCart)
+	http.Handle("/addtocart", uh.Authenticated(http.HandlerFunc(ch.AddtoCart)))
+
 
 	http.HandleFunc("/users/success", uh.UsersUpdate)
 	http.HandleFunc("/user/update", uh.UsersUpdate)

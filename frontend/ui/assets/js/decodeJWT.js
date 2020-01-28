@@ -19,7 +19,6 @@ let token = csrf.innerHTML;
 //         const dataJWT = JSON.parse(window.atob(base64));
 //         dataJWT.header = headerData;
 //
-// // TODO: add expiration at check ...
 //
 //
 //         return dataJWT;
