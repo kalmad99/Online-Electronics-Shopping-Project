@@ -1,0 +1,63 @@
+{{ define "searchresults.layout"}}
+
+    {{ template "navbar" . }}
+    {{ template "searchresult.content" . }}
+    {{ template "footer" . }}
+
+{{end}}
+
+{{ define "searchresult.content" }}
+    {{range .}}
+    <div class="row align-items-center">
+        <div class="col-lg-3 mx-auto ">
+            <img src="/assets/img/{{ .Image }}" width=200px height="200px" />
+        </div>
+        <div class="col-lg-7 mx-auto">
+            <div class="card-body">
+                <h3 class="card-title" style="font-weight: bold"><a href="/detail?id={{ .ID }}">{{ .Name }}</a></h3>
+                {{/*                    <h6 class="text-primary">By {{ .Seller }}</h6>*/}}
+                <hr>
+                <h5>Rating: <b>{{ .Rating }}</b>/5</h5>
+                <h2 style="display: none" class="ratevalues">{{ .Rating }}</h2>
+                <hr>
+                <h5 class="card-text">
+                    <span>Price: </span>
+                    <span class="text-danger">ETB {{ .Price }}</span>
+                </h5>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {{else}}
+    <h2>No Results Found</h2>
+    {{end}}
+{{end}}
+
+
+{{/*<table>*/}}
+{{/*    <thead>*/}}
+{{/*        <td>ID</td>*/}}
+{{/*        <td>Name</td>*/}}
+{{/*        <td>Item Type</td>*/}}
+{{/*        <td>Price</td>*/}}
+{{/*        <td>Quantity</td>*/}}
+{{/*        <td>Seller</td>*/}}
+{{/*        <td>Description</td>*/}}
+{{/*        <td>Image</td>*/}}
+{{/*    </thead>*/}}
+{{/*    {{ range .}}*/}}
+{{/*        <tr>*/}}
+{{/*            <td>{{.ID}}</td>*/}}
+{{/*            <td>{{.Name}}</td>*/}}
+{{/*            <td>{{.ItemType}}</td>*/}}
+{{/*            <td>{{.Price}}</td>*/}}
+{{/*            <td>{{.Quantity}}</td>*/}}
+{{/*            <td>{{.Seller}}</td>*/}}
+{{/*            <td>{{.Description}}</td>*/}}
+{{/*            <td><img src="/assets/img/{{.Image}}"></td>*/}}
+{{/*        </tr>*/}}
+{{/*    {{else}}*/}}
+{{/*        <h2>No Search Results</h2>*/}}
+{{/*    {{end}}*/}}
+{{/*    </thead>*/}}
+{{/*</table>*/}}

@@ -1,0 +1,44 @@
+{{ define "productdetail.layout" }}
+
+    {{ template "navbar" . }}
+    {{ template "productdetail.content" . }}
+    {{ template "footer" . }}
+
+{{ end }}
+
+{{ define "productdetail.content" }}
+    <hr>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <img style="height: 550px;" src="/assets/img/{{ .Image }}" class="card-img-top" />
+            </div>
+            <div class="col-lg-7">
+                <div class="card-body">
+                    <h3 class="card-title" style="font-weight: bold">{{ .Name }}</h3>
+                    {{template "rate.format.layout" .}}
+                    <h6><b>{{ .Rating }}</b> average based on <b>{{ .RatersCount }}</b> reviews.</h6>
+                    <h2 style="display: none" id="ratevalue">{{ .Rating }}</h2>
+{{/*                    <h6 class="text-primary">By {{ .Seller }}</h6>*/}}
+                    <hr>
+{{/*                    <h6 class="card-text">*/}}
+{{/*                        <span>by </span>*/}}
+{{/*                        <span class="text-primary">{{ .Seller }}</span>*/}}
+{{/*                    </h6>*/}}
+                    <hr>
+                    <h5>Product Desciption:</h5>
+                    <p class="card-text"> {{ .Description }} </p>
+                    <hr>
+                    <h5 class="card-text">
+                        <span>Price: </span>
+                        <span class="text-danger">ETB {{ .Price }}</span>
+                    </h5>
+                    <a href="#"><button style="padding: 10px; background-color: teal; color: white"><i class="fas fa-shopping-cart" style="padding: 4px;"></i>Add to Cart</button></a>
+                    <a href="#"><button style="padding: 10px; background-color: teal; color: white"><i class="fas fa-heart" style="padding: 4px;"></i>Add to wishlist</button></a>
+                    <a href="/rate?id={{ .ID }}"><button style="padding: 10px; background-color: teal; color: white">Rate</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+{{ end }}

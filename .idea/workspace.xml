@@ -1,29 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5cedb362-09ee-4148-9c4c-8364b826c58a" name="Default" comment="">
+<<<<<<< Updated upstream
+    <list default="true" id="bea2ce10-9c43-411e-b184-f2c677f8029e" name="Default Changelist" comment="" />
+=======
+    <list default="true" id="ee43da82-5230-4b3b-95a5-75bffcc4aed3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/handler/admin_category_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/handler/admin_category_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/handler/admin_role_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/handler/admin_role_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/handler/cart_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/handler/cart_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/handler/menu_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/handler/menu_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/handler/seller_product_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/handler/seller_product_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/handler/user_handler.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/handler/user_handler.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Delivery/http/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/Delivery/http/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/bank/repository/gorm_bank.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/bank/repository/gorm_bank.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/bank/usecase/bank_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/bank/usecase/bank_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/cart/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/cart/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/cart/repository/gorm_cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/cart/repository/gorm_cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/cart/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/cart/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/cart/service/cart_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/cart/service/cart_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/order/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/order/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/order/repository/gorm_order.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/order/repository/gorm_order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/order/usecase.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/order/usecase.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/order/usecase/order_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/order/usecase/order_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_category.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_product.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/mock_product_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/mock_product_repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_category.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_category.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_product.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/service/category_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/service/category_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/productpage/service/item_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/productpage/service/item_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_role.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_role.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_session.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/repository/psql_role.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/repository/psql_role.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/repository/psql_user.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/repository/psql_user.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/service/role_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/service/role_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/service/session_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/service/session_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/allEntitiesAction/user/service/user_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/allEntitiesAction/user/service/user_service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authFiles/session/mangage_session.go" beforeDir="false" afterPath="$PROJECT_DIR$/authFiles/session/mangage_session.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/entity/bank.go" beforeDir="false" afterPath="$PROJECT_DIR$/entity/bank.go" afterDir="false" />
     </list>
+>>>>>>> Stashed changes
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/.gitignore">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+<<<<<<< Updated upstream
+=======
+        <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_category.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="17">
-              <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+            <state relative-caret-position="60">
+              <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gorm_bank.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/allEntitiesAction/bank/repository/gorm_bank.go">
+      <file pinned="false" current-in-tab="false">
+>>>>>>> Stashed changes
+        <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_product.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/mock_product_repository.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_category.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+<<<<<<< Updated upstream
+              <caret line="5" selection-start-line="5" selection-end-line="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Delivery/http/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret line="6" selection-start-line="6" selection-end-line="6" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/allEntitiesAction/bank/usecase.go">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/service/category_service.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="40">
+              <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+              <folding>
+                <element signature="e#17#67#0" expanded="true" />
+              </folding>
+=======
+              <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+<<<<<<< Updated upstream
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="20">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+=======
+        <entry file="file://$PROJECT_DIR$/delivery/http/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="80">
+              <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+>>>>>>> Stashed changes
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/entity/bank.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/entity/users.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="100">
+              <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="58" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/entity/products.go">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
@@ -32,21 +167,74 @@
   <component name="GOROOT" path="C:\Go" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="kaleb" />
+      </map>
+    </option>
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Delivery/http/category_admin_service_test.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/product_service_test.go" />
+        <option value="$PROJECT_DIR$/Frontend/form/data.go" />
+        <option value="$PROJECT_DIR$/Entity/categories.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/main.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/handler/admin_category_handler.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/handler/cart_handler.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/handler/menu_handler.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/handler/seller_product_handler.go" />
+        <option value="$PROJECT_DIR$/Delivery/http/handler/user_handler.go" />
+<<<<<<< Updated upstream
+        <option value="$PROJECT_DIR$/.gitignore" />
+=======
+        <option value="$PROJECT_DIR$/allEntitiesAction/bank/repository/gorm_bank.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/cart/repository.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/cart/service/cart_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/cart/repository/gorm_cart.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/order/repository.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/order/usecase.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/order/usecase/order_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/order/repository/gorm_order.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/repository.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/service/category_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/service/item_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_product.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_category.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/repository/mock_product_repository.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/repository.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/service/role_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/service/session_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/service/user_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/repository/psql_role.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/repository/psql_user.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_user.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_session.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_role.go" />
+        <option value="$PROJECT_DIR$/authFiles/session/mangage_session.go" />
+        <option value="$PROJECT_DIR$/delivery/http/handler/admin_category_handler.go" />
+        <option value="$PROJECT_DIR$/delivery/http/handler/admin_role_handler.go" />
+        <option value="$PROJECT_DIR$/delivery/http/handler/cart_handler.go" />
+        <option value="$PROJECT_DIR$/delivery/http/handler/menu_handler.go" />
+        <option value="$PROJECT_DIR$/delivery/http/handler/seller_product_handler.go" />
+        <option value="$PROJECT_DIR$/delivery/http/handler/user_handler.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/bank/usecase/bank_service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/cart/service.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_category.go" />
+        <option value="$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_product.go" />
+        <option value="$PROJECT_DIR$/entity/bank.go" />
+        <option value="$PROJECT_DIR$/delivery/http/main.go" />
+>>>>>>> Stashed changes
+      </list>
+    </option>
   </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths />
-  </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-12" />
-    <option name="y" value="62" />
-    <option name="width" value="1346" />
-    <option name="height" value="698" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="948" />
+    <option name="width" value="981" />
+    <option name="height" value="1044" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -55,11 +243,48 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
+<<<<<<< Updated upstream
+=======
+              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="delivery" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="delivery" type="462c0819:PsiDirectoryNode" />
+              <item name="http" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Online-Electronics-Shopping-Project" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Online-Electronics-Shopping-Project" type="b2602c69:ProjectViewProjectNode" />
+>>>>>>> Stashed changes
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="GO_FMT" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
+    <property name="go.import.settings.migrated" value="true" />
     <property name="go.sdk.automatically.set" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -76,65 +301,535 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+    <configuration name="go build Online-Electronics-Shopping-Project/" type="GoApplicationRunConfiguration" factoryName="Go Application" nameIsGenerated="true">
       <module name="Online-Electronics-Shopping-Project" />
       <working_directory value="$PROJECT_DIR$/" />
       <go_parameters value="-i" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/" />
-      <package value="github.com/kalmad99/Online-Electronics-Shopping-Project" />
-      <directory value="$PROJECT_DIR$/" />
-    </configuration>
-    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
-      <module name="Online-Electronics-Shopping-Project" />
-      <working_directory value="$PROJECT_DIR$/" />
-      <go_parameters value="-i" />
-      <framework value="gotest" />
       <kind value="DIRECTORY" />
-      <package value="github.com/kalmad99/Online-Electronics-Shopping-Project" />
-      <directory value="$PROJECT_DIR$/" />
       <filePath value="$PROJECT_DIR$/" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
     </configuration>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-12" y="62" width="1346" height="698" extended-state="0" />
+    <frame x="-7" y="-7" width="1295" height="704" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2643857" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+<<<<<<< Updated upstream
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.30445343" />
+=======
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.29473683" />
+>>>>>>> Stashed changes
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49848714" visible="true" weight="0.32517484" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49878544" weight="0.32692307" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4979757" weight="0.32692307" />
+<<<<<<< Updated upstream
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49621785" weight="0.32517484" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50121456" side_tool="true" visible="true" weight="0.32692307" />
+=======
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49621785" visible="true" weight="0.32517484" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.50121456" side_tool="true" weight="0.32692307" />
+>>>>>>> Stashed changes
+      <window_info anchor="bottom" id="Messages" order="12" sideWeight="0.4977307" weight="0.32517484" />
+      <window_info anchor="bottom" id="Inspection Results" order="13" sideWeight="0.49924356" weight="0.3289689" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26308724" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32867134" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="8" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.32867134" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32867134" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="major overhaul" />
+    <option name="LAST_COMMIT_MESSAGE" value="major overhaul" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/order/repository.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+        <state relative-caret-position="60">
+          <caret line="3" column="14" lean-forward="true" selection-start-line="3" selection-start-column="14" selection-end-line="3" selection-end-column="14" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/allEntitiesAction/bank/repository/gorm_bank.go">
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_product.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="12" lean-forward="true" selection-start-line="4" selection-start-column="12" selection-end-line="4" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_product.go">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/service/item_service.go">
+      <provider selected="true" editor-type-id="text-editor" />
+=======
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/service/category_service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="5" column="1" lean-forward="true" selection-start-line="5" selection-start-column="1" selection-end-line="5" selection-end-column="1" />
+          <folding>
+            <element signature="e#17#182#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/service/item_service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="68" selection-start-line="4" selection-start-column="68" selection-end-line="4" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="71" selection-start-line="2" selection-start-column="71" selection-end-line="2" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/repository.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" selection-start-line="4" selection-end-line="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="71" lean-forward="true" selection-start-line="2" selection-start-column="71" selection-end-line="2" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/service/role_service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
+        </state>
+      </provider>
+>>>>>>> Stashed changes
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/service/session_service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#17#175#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/service/user_service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_role.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_session.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/repository/gorm_user.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/repository/psql_role.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#20#122#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/user/repository/psql_user.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="2" column="8" selection-start-line="2" selection-start-column="8" selection-end-line="2" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authFiles/csrfToken/manage_token.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#19#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authFiles/csrfToken/random_string.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#19#90#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authFiles/permission/manage_permission.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#20#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/authFiles/session/mangage_session.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/admin_category_handler.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#17#441#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/admin_role_handler.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/cart_handler.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#17#378#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/menu_handler.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#17#375#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/order_handler.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/pay_handler.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/seller_product_handler.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#17#392#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/handler/user_handler.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="21">
+          <caret line="18" column="13" lean-forward="true" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/carts.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/mock_carts.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/categories.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/mock_categories.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/entity/carts.go">
+=======
+    <entry file="file://$PROJECT_DIR$/entity/mock_orders.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/mock_products.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/mock_roles.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/mock_sessions.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/mock_users.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/roles.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/sessions.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/form/data.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#14#68#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/form/errors.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/admin_category_handler.go">
+=======
+    <entry file="file://$PROJECT_DIR$/frontend/ui/templates/admin.categ.html">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/orders.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_category.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/admin_role_handler.go">
+=======
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_product.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/cart_handler.go">
+=======
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/mock_product_repository.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/menu_handler.go">
+=======
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_category.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="68" selection-start-line="5" selection-start-column="68" selection-end-line="5" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/order_handler.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/pay_handler.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/seller_product_handler.go">
+=======
+    <entry file="file://$PROJECT_DIR$/entity/bank.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/Delivery/http/handler/user_handler.go">
+=======
+    <entry file="file://$PROJECT_DIR$/entity/users.go">
+>>>>>>> Stashed changes
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< Updated upstream
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_category.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="21" selection-start-line="3" selection-start-column="21" selection-end-line="3" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/gorm_product.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="9" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/mock_product_repository.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/repository/psql_category.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/bank.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="6" column="1" selection-start-line="6" selection-start-column="1" selection-end-line="6" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/users.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="100">
+          <caret line="5" column="23" selection-start-line="5" selection-start-column="23" selection-end-line="5" selection-end-column="58" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/entity/products.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Delivery/http/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="6" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/bank/usecase.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/allEntitiesAction/productpage/service/category_service.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="2" column="7" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="e#17#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="20">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+=======
+    <entry file="file://$PROJECT_DIR$/entity/products.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/delivery/http/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="4" column="14" lean-forward="true" selection-start-line="4" selection-start-column="14" selection-end-line="4" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> Stashed changes
   </component>
 </project>
