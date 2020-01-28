@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"html/template"
-	"log"
 	"net/http"
 	"net/smtp"
 	"net/url"
@@ -38,6 +37,7 @@ var name, email, phone, pass string
 var id, roleid uint
 
 var cid string
+
 // NewUserHandler returns new UserHandler object
 func NewUserHandler(t *template.Template, usrServ user.UserService,
 	sessServ user.SessionService, uRole user.RoleService,
@@ -64,13 +64,11 @@ func (uh *UserHandler) Authenticated(next http.Handler) http.Handler {
 func (uh *UserHandler) Authorized(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if uh.loggedInUser == nil {
-			// log.Println("Got here 65")
 			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 			return
 		}
 		roles, errs := uh.userService.UserRoles(uh.loggedInUser)
 		if len(errs) > 0 {
-			// log.Println("Got here 71")
 			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 			return
 		}
@@ -78,7 +76,6 @@ func (uh *UserHandler) Authorized(next http.Handler) http.Handler {
 		for _, role := range roles {
 			permitted := permission.HasPermission(r.URL.Path, role.Name, r.Method)
 			if !permitted {
-				// log.Println("Got here 79")
 				http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 				return
 			}
@@ -86,7 +83,6 @@ func (uh *UserHandler) Authorized(next http.Handler) http.Handler {
 		if r.Method == http.MethodPost {
 			ok, err := csrfToken.ValidCSRF(r.FormValue("_csrf"), uh.csrfSignKey)
 			if !ok || (err != nil) {
-				// log.Println("Got here 87")
 				http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 				return
 			}
@@ -105,13 +101,11 @@ func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		loginForm := struct {
 			Values  url.Values
 			VErrors form.ValidationErrors
-			// UserID  string
-			CSRF string
+			CSRF    string
 		}{
 			Values:  nil,
 			VErrors: nil,
-			// UserID:  "",
-			CSRF: token,
+			CSRF:    token,
 		}
 		uh.tmpl.ExecuteTemplate(w, "login.html", loginForm)
 		return
@@ -146,25 +140,15 @@ func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 			uh.tmpl.ExecuteTemplate(w, "login.layout", loginForm)
 			return
 		}
-		// usrid := fmt.Sprint(usr.ID)
-		// newloginForm := struct{
-		// 	loginForm  form.Input
-		// 	userID string
-		// }{
-		// 	loginForm: loginForm,
-		// 	userID: usrid,
-		// }
 		uh.userSess = newSess
 		roles, _ := uh.userService.UserRoles(usr)
 		if uh.checkAdmin(roles) {
-			// uh.tmpl.ExecuteTemplate(w, "login.html", newloginForm)
 			http.Redirect(w, r, "/admin", http.StatusSeeOther)
 			return
 		}
 		cid = fmt.Sprint(usr.ID)
 		link := "/?userid=" + fmt.Sprint(usr.ID)
 		http.Redirect(w, r, link, http.StatusSeeOther)
-		// http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
 
@@ -224,7 +208,6 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
-		//log.Println("Got here 206")
 
 		pExists := uh.userService.PhoneExists(r.FormValue("phone"))
 		if pExists {
@@ -235,7 +218,7 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
-		//log.Println("Got here 217")
+
 		eExists := uh.userService.EmailExists(r.FormValue("email"))
 		if eExists {
 			signUpForm.VErrors.Add("email", "Email Already Exists")
@@ -245,7 +228,6 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
-		log.Println("Got here 238")
 		role, errs := uh.userRole.RoleByName("USER")
 
 		if len(errs) > 0 {
@@ -256,7 +238,6 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 			}
 			return
 		}
-		log.Println("Got here 245")
 		user := &entity.User{
 			Name:     r.FormValue("name"),
 			Email:    r.FormValue("email"),
@@ -317,11 +298,9 @@ func (uh *UserHandler) Registration2(w http.ResponseWriter, req *http.Request) {
 	usrinfo := &entity.User{ID: id, Name: name, Email: email, Phone: phone, Password: pass, RoleID: roleid}
 
 	if otp == "123456789" {
-		//_ = tpl.ExecuteTemplate(w, "update.html", usrinfo)
 		_, err := uh.userService.StoreUser(usrinfo)
 		if err != nil {
 			http.Redirect(w, req, "/Registration2", http.StatusSeeOther)
-			//panic(err.Error())
 		}
 		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
 	} else {
@@ -341,7 +320,6 @@ func (uh *UserHandler) loggedIn(r *http.Request) bool {
 	if err != nil {
 		return false
 	}
-	//log.Println("Logged in ", c.Value)
 	ok, err := session.Valid(c.Value, userSess.SigningKey)
 
 	if !ok || (err != nil) {
@@ -372,7 +350,7 @@ func (uh *UserHandler) User(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
-	if r.Method == http.MethodGet{
+	if r.Method == http.MethodGet {
 		idraw := r.URL.Query().Get("id")
 		id, _ := strconv.Atoi(idraw)
 		usr, errs := uh.userService.User(uint(id))
@@ -393,10 +371,11 @@ func (uh *UserHandler) User(w http.ResponseWriter, r *http.Request) {
 
 		uh.tmpl.ExecuteTemplate(w, "user.index.layout", userProf)
 	}
-	if r.Method == http.MethodPost{
+	if r.Method == http.MethodPost {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
 }
+
 // UsersUpdate handles GET/POST /users/update?id={id} request
 func (uh *UserHandler) UsersUpdate(w http.ResponseWriter, r *http.Request) {
 	token, err := csrfToken.CSRFToken(uh.csrfSignKey)
@@ -501,7 +480,7 @@ func (uh *UserHandler) UsersUpdate(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
-		http.Redirect(w, r, "/userprof?id=" + cid, http.StatusSeeOther)
+		http.Redirect(w, r, "/userprof?id="+cid, http.StatusSeeOther)
 	}
 }
 

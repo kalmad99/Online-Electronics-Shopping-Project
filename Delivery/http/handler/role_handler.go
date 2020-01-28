@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user"
 	"net/http"
-
 )
 
 // AdminRoleHandler is used to implement role related http requests

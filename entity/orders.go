@@ -9,8 +9,6 @@ type Order struct {
 	ID        uint
 	UserID    uint      `json:"userId" gorm:"not null"`
 	CreatedAt time.Time `json:"created_at" gorm:"type:timestamp;not null;"`
-	//ItemsID   pq.Int64Array    `json:"productId" gorm:"not null" `
-	//ItemsID uint `json:"ProductId" gorm:"not null"`
-	ItemsID string  `json:"ProductId" gorm:"not null"`
-	Total float64 `json:"total" gorm:"type:float;not null;"`
+	ItemsID   string    `json:"ProductId" gorm:"not null"`
+	Total     float64   `json:"total" gorm:"type:float;not null;"`
 }

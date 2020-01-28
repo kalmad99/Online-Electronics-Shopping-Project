@@ -14,8 +14,6 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
-
-
 )
 
 // AdminCategoryHandler handles category handler admin requests
@@ -71,7 +69,7 @@ func (ach *AdminCategoryHandler) AdminCategoriesNew(w http.ResponseWriter, r *ht
 			CSRF:    token,
 		}
 		err := ach.tmpl.ExecuteTemplate(w, "admin.categ.new.layout", newCatForm)
-		if err != nil{
+		if err != nil {
 			panic(err)
 		}
 	}
@@ -230,7 +228,7 @@ func (ach *AdminCategoryHandler) ItemsinCategories(w http.ResponseWriter, r *htt
 			return
 		}
 		ach.tmpl.ExecuteTemplate(w, "index.layout", prds)
-	}else{
+	} else {
 		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
@@ -250,4 +248,3 @@ func writeFile(mf *multipart.File, fname string) error {
 	io.Copy(image, *mf)
 	return nil
 }
-

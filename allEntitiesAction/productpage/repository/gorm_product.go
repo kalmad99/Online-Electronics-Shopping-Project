@@ -19,7 +19,7 @@ func NewItemGormRepo(db *gorm.DB) productpage.ItemRepository {
 	return &ItemGormRepo{conn: db}
 }
 
-// Items returns all food menus stored in the database
+// Items returns all items stored in the database
 func (itemRepo *ItemGormRepo) Items() ([]entity.Product, []error) {
 	items := []entity.Product{}
 	errs := itemRepo.conn.Find(&items).GetErrors()
@@ -29,7 +29,7 @@ func (itemRepo *ItemGormRepo) Items() ([]entity.Product, []error) {
 	return items, errs
 }
 
-// Item retrieves a food menu by its id from the database
+// Item retrieves a an item by its id from the database
 func (itemRepo *ItemGormRepo) Item(id uint) (*entity.Product, []error) {
 	item := entity.Product{}
 	errs := itemRepo.conn.First(&item, id).GetErrors()
@@ -39,7 +39,7 @@ func (itemRepo *ItemGormRepo) Item(id uint) (*entity.Product, []error) {
 	return &item, errs
 }
 
-// UpdateItem updates a given food menu item in the database
+// UpdateItem updates a given item in the database
 func (itemRepo *ItemGormRepo) UpdateItem(item *entity.Product) (*entity.Product, []error) {
 	itm := item
 	errs := itemRepo.conn.Save(itm).GetErrors()
@@ -49,7 +49,7 @@ func (itemRepo *ItemGormRepo) UpdateItem(item *entity.Product) (*entity.Product,
 	return itm, errs
 }
 
-// DeleteItem deletes a given food menu item from the database
+// DeleteItem deletes a given item from the database
 func (itemRepo *ItemGormRepo) DeleteItem(id uint) (*entity.Product, []error) {
 	itm, errs := itemRepo.Item(id)
 
@@ -64,7 +64,7 @@ func (itemRepo *ItemGormRepo) DeleteItem(id uint) (*entity.Product, []error) {
 	return itm, errs
 }
 
-// StoreItem stores a given food menu item in the database
+// StoreItem stores a given item in the database
 func (itemRepo *ItemGormRepo) StoreItem(item *entity.Product) (*entity.Product, []error) {
 	itm := item
 	errs := itemRepo.conn.Create(itm).GetErrors()
@@ -88,7 +88,6 @@ func (itemRepo *ItemGormRepo) RateProduct(pro *entity.Product) (*entity.Product,
 
 	u := entity.Product{}
 	item := entity.Product{}
-	//itemRepo.conn.Where("id = ?", pro.ID).First(&item)
 	row := itemRepo.conn.Select("rating").First(&item).Where("id = ?", pro.ID).Scan(&u)
 	log.Println("Old rate", u.Rating)
 	if row.RecordNotFound() {
@@ -105,7 +104,6 @@ func (itemRepo *ItemGormRepo) RateProduct(pro *entity.Product) (*entity.Product,
 	log.Println(newratings)
 	log.Println("Pro ", pro.Rating)
 
-	//row = itemRepo.conn.Model(&item).UpdateColumns(entity.Product{Rating: float64(math.Round((newratings*2)))/2,RatersCount: u.RatersCount+1})
 	row = itemRepo.conn.Model(&pro).Updates(entity.Product{Rating: float64(math.Round((newratings * 2))) / 2, RatersCount: u.RatersCount + 1})
 
 	if row.RowsAffected < 1 {

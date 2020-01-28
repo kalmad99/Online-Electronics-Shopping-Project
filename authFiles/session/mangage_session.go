@@ -9,7 +9,6 @@ import (
 	"time"
 )
 
-// Create creates and sets session cookie
 func Create(claims jwt.Claims, sessionID string, signingKey []byte, w http.ResponseWriter) {
 	signedString, err := csrfToken.Generate(signingKey, claims)
 	if err != nil {
@@ -24,7 +23,6 @@ func Create(claims jwt.Claims, sessionID string, signingKey []byte, w http.Respo
 	http.SetCookie(w, &c)
 }
 
-// Valid validates client cookie value
 func Valid(cookieValue string, signingKey []byte) (bool, error) {
 	valid, err := csrfToken.Valid(cookieValue, signingKey)
 	if err != nil || !valid {
@@ -33,7 +31,6 @@ func Valid(cookieValue string, signingKey []byte) (bool, error) {
 	return true, nil
 }
 
-// Remove expires existing session
 func Remove(sessionID string, w http.ResponseWriter) {
 	c := http.Cookie{
 		Name:    sessionID,

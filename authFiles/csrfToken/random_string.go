@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-// GenerateRandomBytes returns securely generated random bytes.
 func GenerateRandomBytes(n int) ([]byte, error) {
 	mrand.Seed(time.Now().UnixNano())
 	b := make([]byte, n)
@@ -18,13 +17,11 @@ func GenerateRandomBytes(n int) ([]byte, error) {
 	return b, nil
 }
 
-// GenerateRandomString returns a URL-safe, base64 encoded securely generated random string.
 func GenerateRandomString(s int) (string, error) {
 	b, err := GenerateRandomBytes(s)
 	return base64.URLEncoding.EncodeToString(b), err
 }
 
-// GenerateRandomID generates random id for a session
 func GenerateRandomID(s int) string {
 	mrand.Seed(time.Now().UnixNano())
 

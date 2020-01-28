@@ -27,13 +27,12 @@ type CartHandler struct {
 
 // NewAdminCategoryHandler initializes and returns new AdminCateogryHandler
 func NewCartHandler(t *template.Template, cs cart.CartService, usrServ user.UserService,
-	sessServ user.SessionService, uRole user.RoleService, usrSess *entity.Session, prodServ productpage.ItemService,
-	csKey []byte) *CartHandler {
+	prodServ productpage.ItemService, csKey []byte) *CartHandler {
 	return &CartHandler{tmpl: t, cartSrv: cs, userService: usrServ, productService: prodServ,
 		csrfSignKey: csKey}
 }
 
-// Products handle requests on route /seller/products
+// GetCarts handle requests on route /admin/cart
 func (ch *CartHandler) GetCarts(w http.ResponseWriter, r *http.Request) {
 	carts, _ := ch.cartSrv.GetCarts()
 	token, err := csrfToken.CSRFToken(ch.csrfSignKey)
@@ -80,12 +79,8 @@ func (ch *CartHandler) GetSingleCart(w http.ResponseWriter, r *http.Request) {
 
 func (ch *CartHandler) GetUserCart(w http.ResponseWriter, r *http.Request) {
 	user := &entity.User{}
-	//if r.Method == http.MethodGet{
 	idRaw := r.URL.Query().Get("id")
 	id, err := strconv.Atoi(idRaw)
-	//if err != nil {
-	//	http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
-	//}
 	user.ID = uint(id)
 	prds, _ := ch.cartSrv.GetUserCart(user)
 	productsss := []entity.Product{}
@@ -131,10 +126,10 @@ func (ch *CartHandler) DeleteCart(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		}
 	}
-	//http.Redirect(w, r, "/admin/cart", 303)
 }
 
 var idk string
+
 func (ch *CartHandler) AddtoCart(w http.ResponseWriter, r *http.Request) {
 	if r.Method == http.MethodPost {
 		uid, _ := strconv.Atoi(r.FormValue("userid"))
@@ -151,7 +146,6 @@ func (ch *CartHandler) AddtoCart(w http.ResponseWriter, r *http.Request) {
 			AddedTime: t,
 			Price:     pri,
 		}
-		// link += string(pid)
 		_, errs := ch.cartSrv.AddtoCart(car)
 		if len(errs) > 0 {
 			panic(errs)
@@ -177,5 +171,5 @@ func (ch *CartHandler) UpdateCart(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	http.Redirect(w, r, "/getusercart?id=" + cid, 303)
+	http.Redirect(w, r, "/getusercart?id="+cid, 303)
 }

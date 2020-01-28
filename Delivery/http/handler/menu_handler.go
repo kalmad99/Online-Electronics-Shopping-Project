@@ -8,7 +8,6 @@ import (
 	"html/template"
 	"net/http"
 	"net/url"
-
 )
 
 // MenuHandler handles menu related requests
@@ -34,17 +33,12 @@ func (mh *MenuHandler) Index(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
-//run this
-//wait ande. chrome 62 tab tekeftual.lag eyarege new
-	//products, err := mh.productSrv.Items()
-	//if err != nil {
-	//	panic(err)
-	//}
+
 	products, errs := mh.productSrv.Items()
 	if len(errs) > 0 {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
-		tmplData := struct {
+	tmplData := struct {
 		Values   url.Values
 		VErrors  form.ValidationErrors
 		Products []entity.Product
@@ -59,22 +53,6 @@ func (mh *MenuHandler) Index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	mh.tmpl.ExecuteTemplate(w, "index.layout", tmplData)
-	//mh.tmpl.ExecuteTemplate(w, "index.layout", products)
-}
-
-// About handles requests on route /about
-func (mh *MenuHandler) About(w http.ResponseWriter, r *http.Request) {
-	mh.tmpl.ExecuteTemplate(w, "about.layout", nil)
-}
-
-// Menu handle request on route /menu
-func (mh *MenuHandler) Menu(w http.ResponseWriter, r *http.Request) {
-	mh.tmpl.ExecuteTemplate(w, "menu.layout", nil)
-}
-
-// Contact handle request on route /Contact
-func (mh *MenuHandler) Contact(w http.ResponseWriter, r *http.Request) {
-	mh.tmpl.ExecuteTemplate(w, "contact.layout", nil)
 }
 
 // Admin handle request on route /admin

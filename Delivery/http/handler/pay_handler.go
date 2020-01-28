@@ -38,11 +38,11 @@ func RandStringBytes(n int) string {
 }
 
 func NewPayHandler(t *template.Template, bs bank.PayService, us user.UserService, os order.OrderService,
-	carts cart.CartService, cs []byte) *PayHandler{
+	carts cart.CartService, cs []byte) *PayHandler {
 	return &PayHandler{tmpl: t, bankSrv: bs, userSrv: us, orderSrv: os, cartSrv: carts, csrfSignKey: cs}
 }
 
-func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request){
+func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request) {
 	token, err := csrfToken.CSRFToken(ph.csrfSignKey)
 	ordr := entity.Order{}
 	if err != nil {
@@ -66,12 +66,12 @@ func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request){
 			CSRF:    token,
 		}
 		err := ph.tmpl.ExecuteTemplate(w, "payment.html", newPayForm)
-		if err != nil{
+		if err != nil {
 			panic(err)
 		}
 	}
 
-	if r.Method == http.MethodPost{
+	if r.Method == http.MethodPost {
 		err := r.ParseForm()
 		if err != nil {
 			http.Error(w, http.StatusText(http.StatusBadRequest), http.StatusBadRequest)
@@ -86,13 +86,8 @@ func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request){
 		bExists := ph.bankSrv.BankExists(r.FormValue("bank"))
 		log.Println("Exists", bExists)
 		if !bExists {
-			//newPayForm.VErrors.Add("bank", "Bank Account Doesnt Exist")
-			//err := ph.tmpl.ExecuteTemplate(w, "payment.html", newPayForm)
-			//if err != nil {
-			//	panic(err.Error())
-			//}
 			oid := entity.User{}
-			i,_ := strconv.Atoi(idr)
+			i, _ := strconv.Atoi(idr)
 			oid.ID = uint(i)
 			ordr, _ := ph.orderSrv.CustomerOrders(&oid)
 			err := ph.tmpl.ExecuteTemplate(w, "payerror.html", ordr.ID)
@@ -100,7 +95,7 @@ func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request){
 				panic(err)
 			}
 			return
-		}else {
+		} else {
 			bankacc := r.FormValue("bank")
 			userid := r.FormValue("order")
 			uid, _ := strconv.Atoi(userid)
@@ -112,9 +107,6 @@ func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request){
 			log.Println("Amount", order.Total)
 			log.Println("user", order.UserID)
 			log.Println("user email", userord.Email)
-			//balance := fmt.Sprint(order.Total)
-			//log.Println("balance", balance)
-			//bala, err := strconv.ParseFloat(balance, 64)
 			_, errs = ph.bankSrv.MakePayment(bankacc, order.Total)
 			if len(errs) > 0 {
 				panic(errs)
@@ -153,14 +145,14 @@ func (ph *PayHandler) MakePayment(w http.ResponseWriter, r *http.Request){
 			fmt.Print("Email Sent")
 
 			final := struct {
-				User   entity.User
-				TransactionID  string
+				User          entity.User
+				TransactionID string
 			}{
-				User: *userord,
-				TransactionID:tid,
+				User:          *userord,
+				TransactionID: tid,
 			}
 			_, errs = ph.orderSrv.DeleteOrder(uint(uid))
-			if len(errs)>0{
+			if len(errs) > 0 {
 				panic(errs)
 			}
 			_, errs = ph.cartSrv.DeleteCart(userord)

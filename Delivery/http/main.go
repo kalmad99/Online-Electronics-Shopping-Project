@@ -29,10 +29,12 @@ import (
 )
 
 func createTables(dbconn *gorm.DB) []error {
+	errs := dbconn.CreateTable(&entity.User{}, &entity.Bank{}, &entity.Session{}, &entity.Product{}, &entity.Category{}, &entity.Cart{}, &entity.Order{}, &entity.Role{}).GetErrors()
+	if errs != nil {
+		return errs
+	}
 	if !dbconn.HasTable(&entity.User{}) {
 		errs := dbconn.CreateTable(&entity.User{}).GetErrors()
-		dbconn.Exec("Insert into users (name, email, phone, password, role_id) values ('admin', 'admin123@gmail.com'," +
-			"'+251911111111', 'admin123', 1;")
 		if errs != nil {
 			return errs
 		}
@@ -40,8 +42,6 @@ func createTables(dbconn *gorm.DB) []error {
 	}
 	if !dbconn.HasTable(&entity.Role{}) {
 		errs := dbconn.CreateTable(&entity.Role{}).GetErrors()
-		dbconn.Exec("Insert into roles (name) values ('ADMIN')")
-		dbconn.Exec("Insert into roles (name) values ('USER')")
 		if errs != nil {
 			return errs
 		}
@@ -63,9 +63,6 @@ func createTables(dbconn *gorm.DB) []error {
 	}
 	if !dbconn.HasTable(&entity.Bank{}) {
 		errs := dbconn.CreateTable(&entity.Bank{}).GetErrors()
-		dbconn.Exec("Insert into banks (account_no, balance) values ('111111', 120000.00)")
-		dbconn.Exec("Insert into banks (account_no, balance) values ('222222', 9000.00)")
-		dbconn.Exec("Insert into banks (account_no, balance) values ('333333', 30000.00)")
 		if errs != nil {
 			return errs
 		}
@@ -85,11 +82,7 @@ func createTables(dbconn *gorm.DB) []error {
 		}
 		return nil
 	}
-	//errs := dbconn.CreateTable(&entity.User{}, &entity.Role{}, &entity.Session{}, &entity.Product{}, &entity.Bank{}, &entity.Category{}).GetErrors()
-	////errs := dbconn.CreateTable(&entity.Cart{}).GetErrors()
-	//if errs != nil {
-	//	return errs
-	//}
+
 	return nil
 }
 
@@ -98,7 +91,7 @@ func main() {
 	csrfSignKey := []byte(csrfToken.GenerateRandomID(32))
 	tmpl := template.Must(template.ParseGlob("../../frontend/ui/templates/*"))
 
-	dbconn, err := gorm.Open("postgres", "postgres://postgres:password@localhost/project?sslmode=disable")
+	dbconn, err := gorm.Open("postgres", "postgres://postgres:password@localhost/finalproject?sslmode=disable")
 
 	createTables(dbconn)
 
@@ -107,6 +100,13 @@ func main() {
 	}
 
 	defer dbconn.Close()
+
+	dbconn.Exec("Insert into users (name, email, phone, password, role_id) values ('admin', 'admin123@gmail.com', '+251911111111', 'admin123', 1);")
+	dbconn.Exec("Insert into roles (name) values ('ADMIN')")
+	dbconn.Exec("Insert into roles (name) values ('USER')")
+	dbconn.Exec("Insert into banks (account_no, balance) values ('111111', 120000.00)")
+	dbconn.Exec("Insert into banks (account_no, balance) values ('222222', 9000.00)")
+	dbconn.Exec("Insert into banks (account_no, balance) values ('333333', 30000.00)")
 
 	sessionRepo := urepimp.NewSessionGormRepo(dbconn)
 	sessionSrv := usrvimp.NewSessionService(sessionRepo)
@@ -141,15 +141,12 @@ func main() {
 
 	sess := ConfigSessions()
 	uh := handler.NewUserHandler(tmpl, userServ, sessionSrv, roleServ, sess, csrfSignKey)
-	ch := handler.NewCartHandler(tmpl, cartServ, userServ, sessionSrv, roleServ, sess, itemServ, csrfSignKey)
+	ch := handler.NewCartHandler(tmpl, cartServ, userServ, itemServ, csrfSignKey)
 
 	fs := http.FileServer(http.Dir("../../frontend/ui/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
 
 	http.HandleFunc("/", mh.Index)
-	http.HandleFunc("/about", mh.About)
-	http.HandleFunc("/contact", mh.Contact)
-	http.HandleFunc("/menu", mh.Menu)
 	http.Handle("/admin", uh.Authenticated(uh.Authorized(http.HandlerFunc(mh.Admin))))
 	http.HandleFunc("/Loginpage", mh.LoginPage)
 	http.HandleFunc("/Registpage", mh.RegistPage)
@@ -183,7 +180,6 @@ func main() {
 	http.Handle("/admin/order", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.GetUserOrder))))
 	http.Handle("/admin/order/delete", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.OrderDelete))))
 
-
 	http.Handle("/getusercart", uh.Authenticated(http.HandlerFunc(ch.GetUserCart)))
 	http.Handle("/deleteitemcart", uh.Authenticated(http.HandlerFunc(ch.UpdateCart)))
 	http.Handle("/addtocart", uh.Authenticated(http.HandlerFunc(ch.AddtoCart)))
@@ -205,7 +201,6 @@ func main() {
 	http.Handle("/user/update", uh.Authenticated(http.HandlerFunc(uh.UsersUpdate)))
 
 	http.Handle("/logout", uh.Authenticated(http.HandlerFunc(uh.Logout)))
-
 
 	http.ListenAndServe(":8080", nil)
 }
