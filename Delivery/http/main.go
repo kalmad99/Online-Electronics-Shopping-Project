@@ -91,7 +91,7 @@ func main() {
 	csrfSignKey := []byte(csrfToken.GenerateRandomID(32))
 	tmpl := template.Must(template.ParseGlob("../../frontend/ui/templates/*"))
 
-	dbconn, err := gorm.Open("postgres", "postgres://postgres:password@localhost/finalproject?sslmode=disable")
+	dbconn, err := gorm.Open("postgres", "postgres://postgres:password@localhost/finalprojectl?sslmode=disable")
 
 	createTables(dbconn)
 
@@ -101,12 +101,12 @@ func main() {
 
 	defer dbconn.Close()
 
-	dbconn.Exec("Insert into users (name, email, phone, password, role_id) values ('admin', 'admin123@gmail.com', '+251911111111', 'admin123', 1);")
-	dbconn.Exec("Insert into roles (name) values ('ADMIN')")
-	dbconn.Exec("Insert into roles (name) values ('USER')")
-	dbconn.Exec("Insert into banks (account_no, balance) values ('111111', 120000.00)")
-	dbconn.Exec("Insert into banks (account_no, balance) values ('222222', 9000.00)")
-	dbconn.Exec("Insert into banks (account_no, balance) values ('333333', 30000.00)")
+	//dbconn.Exec("Insert into users (name, email, phone, password, role_id) values ('admin', 'admin123@gmail.com', '+251911111111', 'admin123', 1);")
+	//dbconn.Exec("Insert into roles (name) values ('ADMIN')")
+	//dbconn.Exec("Insert into roles (name) values ('USER')")
+	//dbconn.Exec("Insert into banks (account_no, balance) values ('111111', 120000.00)")
+	//dbconn.Exec("Insert into banks (account_no, balance) values ('222222', 9000.00)")
+	//dbconn.Exec("Insert into banks (account_no, balance) values ('333333', 30000.00)")
 
 	sessionRepo := urepimp.NewSessionGormRepo(dbconn)
 	sessionSrv := usrvimp.NewSessionService(sessionRepo)
