@@ -127,24 +127,6 @@ func (userRepo *UserGormRepo) EmailExists(email string) bool {
 	return true
 }
 
-// BankExists check if a given account is found
-func (userRepo *UserGormRepo) BankExists(acc string) bool {
-	//user := entity.User{}
-	//bank := entity.Bank{}
-	/*errs := userRepo.conn.Find(&bank, "accountno=?", acc).GetErrors()
-	if len(errs) > 0 {
-		return false
-	}
-	return true*/
-	var bankacc string
-	row := userRepo.conn.Table("bank").Where("accountno = ?", acc).Select("accountno").Row()
-	err := row.Scan(&bankacc)
-	if err != nil {
-		return false
-	}
-	return true
-}
-
 // UserRoles returns list of application roles that a given user has
 func (userRepo *UserGormRepo) UserRoles(user *entity.User) ([]entity.Role, []error) {
 	userRoles := []entity.Role{}

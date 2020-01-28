@@ -13,7 +13,6 @@ type UserRepository interface {
 	ChangePassword(user *entity.User) (*entity.User, []error)
 	PhoneExists(phone string) bool
 	EmailExists(email string) bool
-	BankExists(acc string) bool
 	UserRoles(*entity.User) ([]entity.Role, []error)
 }
 

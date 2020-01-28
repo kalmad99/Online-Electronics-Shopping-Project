@@ -63,6 +63,16 @@ func (inVal *Input) MatchesPhonePattern(field string, pattern *regexp.Regexp) {
 	}
 }
 
+// MatchesPattern checks if a given input form field matchs a given pattern
+func (inVal *Input) BankExists(field string, pattern *regexp.Regexp) {
+	value := inVal.Values.Get(field)
+	if value == "" {
+		return
+	}
+	if !pattern.MatchString(value) {
+		inVal.VErrors.Add(field, "The value entered is invalid. It should be of the format +251911111111")
+	}
+}
 // PasswordMatches checks if Password and Confirm Password fields match
 func (inVal *Input) PasswordMatches(password string, confPassword string) {
 	pwd := inVal.Values.Get(password)

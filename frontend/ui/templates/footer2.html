@@ -1,0 +1,140 @@
+{{ define "footer"}}
+     <!-- Footer Section Start -->
+         <br>
+    <div class="footer-section section bg-ivory" style="background-color: whitesmoke;">
+
+        <!-- Footer Top Section Start -->
+        <div class="footer-top-section section pt-90 pb-50">
+            <div class="container">
+
+                <!-- Footer Widget Start -->
+                <div class="row">
+
+                    <!-- Footer Widget Start -->
+                    <div class="col-lg-3 col-md-6 col-12 mb-40">
+                        <div class="footer-widget">
+                           <div class="foot-contact">
+                            <h4 class="widget-title">CONTACT INFO</h4>
+
+                            <p class="contact-info">
+                                <span>Address</span>
+                                Addis Ababa Institute of Technology <br>
+                                5 Kilo
+                            </p>
+
+                            <p class="contact-info">
+                                <span>Phone</span>
+                                +25191111111
+                                +25199999999
+                            </p>
+
+                            <p class="contact-info">
+                                <span>Web</span>
+                                <a href="mailto:kalemesfin12go@gmail.com">kalemesfin12go@gmail.com</a>
+                                dannyterefe9917@gmail.com
+                            </p>
+                        </div>
+                        </div>
+                    </div><!-- Footer Widget End -->
+
+                    <!-- Footer Widget Start -->
+                    <div class="col-lg-3 col-md-6 col-12 mb-40">
+                        <div class="footer-widget">
+
+                            <h4 class="widget-title">INFORMATION</h4>
+
+                            <ul class="link-widget">
+                                <!-- <li><a href="#">Track your order</a></li> -->
+                                <li><a href="#">Terms & Conditions</a></li>
+                                <!-- <li><a href="#">Payment</a></li> -->
+                                <!-- <li><a href="#">Shipping & Returns</a></li> -->
+                                <!-- <li><a href="#">Gift coupon</a></li> -->
+                                <!-- <li><a href="#">Special coupon</a></li> -->
+                            </ul>
+
+                        </div>
+                    </div><!-- Footer Widget End -->
+
+                    <div class="col-lg-3 col-md-6 col-12 mb-40">
+                            <div class="footer-widget">
+
+                                <h4 class="widget-title">SOCIAL MEDIA</h4>
+
+                                <ul class="social-link-widget">
+                                    <!-- <li><a href="#">Track your order</a></li> -->
+
+                                    <li><a href="#"><i class="fa fa-telegram"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+
+                                    <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                    <li><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                                    <!-- <li><a href="#">Payment</a></li> -->
+                                    <!-- <li><a href="#">Shipping & Returns</a></li> -->
+                                    <!-- <li><a href="#">Gift coupon</a></li> -->
+                                    <!-- <li><a href="#">Special coupon</a></li> -->
+                                </ul>
+
+                            </div>
+                        </div>
+
+                    <!-- Footer Widget Start -->
+                    <!-- <div class="col-lg-3 col-md-6 col-12 mb-40">
+                        <div class="footer-widget">
+
+                            <h4 class="widget-title">LATEST TWEET</h4>
+
+                            <div class="footer-tweet"></div>
+
+                        </div>
+                    </div> -->
+                    <!-- Footer Widget End -->
+
+                </div>
+
+            </div>
+        </div><!-- Footer Bottom Section Start -->
+
+        <!-- Footer Bottom Section Start -->
+        <div class="footer-bottom-section section">
+            <div class="container">
+                <div class="row">
+
+                    <!-- Footer Copyright -->
+                    <h6 style="horiz-align-align: center">&copy; Copyright, 2020 All Rights Reserved by E&E Online Electronics Shopping</h6>
+
+                    <!-- Footer Payment Support -->
+                    <div class="col-lg-6 col-12">
+                        <!-- <div class="footer-payments-image"><img src="assets/images/payment-support.png" alt="Payment Support Image"></div> -->
+                    </div>
+
+                </div>
+            </div>
+        </div><!-- Footer Bottom Section Start -->
+
+    </div><!-- Footer Section End -->
+    <script src="../assets/js/jquery-3.4.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+    <script src="../assets/js/select.js"></script>
+    <script src="../assets/js/ratingformat.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
+    <script>
+        console.log("test");
+        $(document).ready(function(){
+            let id = $('#userid').text();
+            if(id!=""){
+                localStorage.setItem('userid', id);
+                console.log(localStorage.getItem('userid'));
+                console.log("t",id);
+            }
+        });
+    </script>
+    <script src="../assets/js/alljs.js"></script>
+    <script src="../assets/js/userprof.js"></script>
+    <script src="../assets/js/decodeJWT.js"></script>
+    <script src="../assets/js/addtocart.js"></script>
+    </body>
+    </html>
+{{end}}

@@ -70,7 +70,10 @@ func (ach *AdminCategoryHandler) AdminCategoriesNew(w http.ResponseWriter, r *ht
 			VErrors: nil,
 			CSRF:    token,
 		}
-		ach.tmpl.ExecuteTemplate(w, "admin.categ.new.layout", newCatForm)
+		err := ach.tmpl.ExecuteTemplate(w, "admin.categ.new.layout", newCatForm)
+		if err != nil{
+			panic(err)
+		}
 	}
 
 	if r.Method == http.MethodPost {
@@ -209,6 +212,7 @@ func (ach *AdminCategoryHandler) ItemsinCategories(w http.ResponseWriter, r *htt
 	if r.Method == http.MethodGet {
 
 		idRaw := r.URL.Query().Get("id")
+		log.Println("items in categ", id)
 
 		id, err := strconv.Atoi(idRaw)
 
@@ -218,15 +222,17 @@ func (ach *AdminCategoryHandler) ItemsinCategories(w http.ResponseWriter, r *htt
 
 		cat, _ := ach.categorySrv.Category(uint(id))
 
+		log.Println("Category name", cat.Name)
+
 		prds, errs := ach.categorySrv.ItemsInCategory(cat)
 
 		if len(errs) > 0 {
 			return
 		}
 		ach.tmpl.ExecuteTemplate(w, "index.layout", prds)
+	}else{
+		http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
-
-	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
 
 func writeFile(mf *multipart.File, fname string) error {
@@ -245,357 +251,3 @@ func writeFile(mf *multipart.File, fname string) error {
 	return nil
 }
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
-//package handler
-//
-//import (
-//	"encoding/json"
-//	"html/template"
-//	"io"
-//	"mime/multipart"
-//	"net/http"
-//	"os"
-//	"path/filepath"
-//	"strconv"
-//
-//	"../../../entity"
-//	"../../../productpage"
-//)
-//
-//// AdminCategoryHandler handles category handler admin requests
-//type AdminCategoryHandler struct {
-//	tmpl        *template.Template
-//	categorySrv productpage.CategoryService
-//}
-//
-//// NewAdminCategoryHandler initializes and returns new AdminCateogryHandler
-//func NewAdminCategoryHandler(t *template.Template, cs productpage.CategoryService) *AdminCategoryHandler {
-//	return &AdminCategoryHandler{tmpl: t, categorySrv: cs}
-//}
-//
-//// AdminCategories handle requests on route /admin/categories
-//func (ach *AdminCategoryHandler) AdminCategories(w http.ResponseWriter, r *http.Request) {
-//	categories, errs := ach.categorySrv.Categories()
-//
-//	if len(errs) > 0 {
-//		w.Header().Set("Content-type", "application/json")
-//		http.Error(w, http.StatusText(http.StatusSeeOther), 303)
-//		return
-//	}
-//	output, err := json.MarshalIndent(categories, "", "\t\t")
-//
-//	if err != nil{
-//		w.Header().Set("Content-type", "application/json")
-//		http.Error(w, http.StatusText(http.StatusSeeOther), 303)
-//		return
-//	}
-//	_, err = w.Write(output)
-//	if err != nil {
-//		panic(err.Error())
-//	}
-//	//ach.tmpl.ExecuteTemplate(w, "admin.categ.layout", categories)
-//}
-//
-//// AdminCategoriesNew hanlde requests on route /admin/categories/new
-//func (ach *AdminCategoryHandler) AdminCategoriesNew(w http.ResponseWriter, r *http.Request) {
-//	if r.Method == http.MethodPost {
-//
-//		ctg := &entity.Category{}
-//		ctg.Name = r.FormValue("name")
-//		ctg.Description = r.FormValue("description")
-//
-//		mf, fh, err := r.FormFile("catimg")
-//		if err != nil {
-//			panic(err)
-//		}
-//		defer mf.Close()
-//
-//		ctg.Image = fh.Filename
-//
-//		writeFile(&mf, fh.Filename)
-//
-//		_, errs := ach.categorySrv.StoreCategory(ctg)
-//
-//		if len(errs) > 0 {
-//			panic(errs)
-//		}
-//
-//		http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//
-//	} else {
-//
-//		ach.tmpl.ExecuteTemplate(w, "admin.categ.new.layout", nil)
-//
-//	}
-//}
-//
-//// AdminCategoriesUpdate handle requests on /admin/categories/update
-//func (ach *AdminCategoryHandler) AdminCategoriesUpdate(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		cat, errs := ach.categorySrv.Category(uint(id))
-//
-//		if len(errs) > 0 {
-//			panic(errs)
-//		}
-//
-//		ach.tmpl.ExecuteTemplate(w, "admin.categ.update.layout", cat)
-//
-//	} else if r.Method == http.MethodPost {
-//
-//		ctg := &entity.Category{}
-//		id, _ := strconv.Atoi(r.FormValue("id"))
-//		ctg.ID = uint(id)
-//		ctg.Name = r.FormValue("name")
-//		ctg.Description = r.FormValue("description")
-//		ctg.Image = r.FormValue("image")
-//
-//		mf, _, err := r.FormFile("catimg")
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		defer mf.Close()
-//
-//		writeFile(&mf, ctg.Image)
-//
-//		_, errs := ach.categorySrv.UpdateCategory(ctg)
-//
-//		if len(errs) > 0 {
-//			panic(errs)
-//		}
-//
-//		http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//
-//	} else {
-//		http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//	}
-//
-//}
-//
-//// AdminCategoriesDelete handle requests on route /admin/categories/delete
-//func (ach *AdminCategoryHandler) AdminCategoriesDelete(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		_, errs := ach.categorySrv.DeleteCategory(uint(id))
-//
-//		if len(errs) > 0 {
-//			panic(err)
-//		}
-//
-//	}
-//
-//	http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//}
-//
-//// AdminCategoriesDelete handle requests on route /admin/categories/delete
-//func (ach *AdminCategoryHandler) ItemsinCategories(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		cat, _ := ach.categorySrv.Category(uint(id))
-//
-//		prds, errs := ach.categorySrv.ItemsInCategory(cat)
-//
-//		if len(errs) > 0 {
-//			return
-//		}
-//		ach.tmpl.ExecuteTemplate(w, "index.layout", prds)
-//	}
-//
-//	http.Redirect(w, r, "/", http.StatusSeeOther)
-//}
-//
-//func writeFile(mf *multipart.File, fname string) {
-//
-//	wd, err := os.Getwd()
-//
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	path := filepath.Join(wd, "../", "../", "ui", "assets", "img", fname)
-//	image, err := os.Create(path)
-//
-//	if err != nil {
-//		panic(err)
-//	}
-//	defer image.Close()
-//	io.Copy(image, *mf)
-//}
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////
-//AdminCategoryHandler handles category handler admin requests
-//type AdminCategoryHandler struct {
-//	tmpl        *template.Template
-//	categorySrv productpage.CategoryService
-//}
-//
-//// NewAdminCategoryHandler initializes and returns new AdminCateogryHandler
-//func NewAdminCategoryHandler(t *template.Template, cs productpage.CategoryService) *AdminCategoryHandler {
-//	return &AdminCategoryHandler{tmpl: t, categorySrv: cs}
-//}
-//
-//// AdminCategories handle requests on route /admin/categories
-//func (ach *AdminCategoryHandler) AdminCategories(w http.ResponseWriter, r *http.Request) {
-//	categories, errs := ach.categorySrv.Categories()
-//	if errs != nil {
-//		panic(errs)
-//	}
-//	ach.tmpl.ExecuteTemplate(w, "admin.categ.layout", categories)
-//}
-//
-//// AdminCategoriesNew hanlde requests on route /admin/categories/new
-//func (ach *AdminCategoryHandler) AdminCategoriesNew(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodPost {
-//
-//		ctg := entity.Category{}
-//		ctg.Name = r.FormValue("name")
-//		ctg.Description = r.FormValue("description")
-//
-//		mf, fh, err := r.FormFile("catimg")
-//		if err != nil {
-//			panic(err)
-//		}
-//		defer mf.Close()
-//
-//		ctg.Image = fh.Filename
-//
-//		writeFile(&mf, fh.Filename)
-//
-//		_, err = ach.categorySrv.StoreCategory(ctg)
-//
-//		if err != nil{
-//			panic(err.Error())
-//		}
-//
-//		http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//
-//	} else {
-//
-//		ach.tmpl.ExecuteTemplate(w, "admin.categ.new.layout", nil)
-//
-//	}
-//}
-//
-//// AdminCategoriesUpdate handle requests on /admin/categories/update
-//func (ach *AdminCategoryHandler) AdminCategoriesUpdate(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		cat, err := ach.categorySrv.Category(uint(id))
-//
-//		if err != nil{
-//			panic(err.Error())
-//		}
-//
-//		ach.tmpl.ExecuteTemplate(w, "admin.categ.update.layout", cat)
-//
-//	} else if r.Method == http.MethodPost {
-//
-//		ctg := entity.Category{}
-//		id, _ := strconv.Atoi(r.FormValue("id"))
-//		ctg.ID = uint(id)
-//		ctg.Name = r.FormValue("name")
-//		ctg.Description = r.FormValue("description")
-//		ctg.Image = r.FormValue("image")
-//
-//		mf, _, err := r.FormFile("catimg")
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		defer mf.Close()
-//
-//		writeFile(&mf, ctg.Image)
-//
-//		err = ach.categorySrv.UpdateCategory(ctg)
-//
-//		if err != nil{
-//			panic(err.Error())
-//		}
-//
-//		http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//
-//	} else {
-//		http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//	}
-//
-//}
-//
-//// AdminCategoriesDelete handle requests on route /admin/categories/delete
-//func (ach *AdminCategoryHandler) AdminCategoriesDelete(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		err = ach.categorySrv.DeleteCategory(uint(id))
-//
-//		if err != nil{
-//			panic(err.Error())
-//		}
-//	}
-//
-//	http.Redirect(w, r, "/admin/categories", http.StatusSeeOther)
-//}
-//
-//func writeFile(mf *multipart.File, fname string) {
-//
-//	wd, err := os.Getwd()
-//
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	path := filepath.Join(wd, "../", "../", "ui", "assets", "img", fname)
-//	image, err := os.Create(path)
-//
-//	if err != nil {
-//		panic(err)
-//	}
-//	defer image.Close()
-//	io.Copy(image, *mf)
-//}
-//

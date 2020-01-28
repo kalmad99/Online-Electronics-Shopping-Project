@@ -86,11 +86,6 @@ func (us *UserService) EmailExists(email string) bool {
 	return exists
 }
 
-func (us *UserService) BankExists(acc string) bool {
-	exists := us.userRepo.BankExists(acc)
-	return exists
-}
-
 // UserRoles returns list of roles a user has
 func (us *UserService) UserRoles(user *entity.User) ([]entity.Role, []error) {
 	userRoles, errs := us.userRepo.UserRoles(user)

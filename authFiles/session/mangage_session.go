@@ -11,7 +11,6 @@ import (
 
 // Create creates and sets session cookie
 func Create(claims jwt.Claims, sessionID string, signingKey []byte, w http.ResponseWriter) {
-
 	signedString, err := csrfToken.Generate(signingKey, claims)
 	if err != nil {
 		fmt.Println(err)

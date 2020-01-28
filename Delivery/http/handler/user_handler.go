@@ -3,13 +3,6 @@ package handler
 import (
 	"context"
 	"fmt"
-	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user"
-	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
-	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/permission"
-	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/session"
-	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
-	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
-	"golang.org/x/crypto/bcrypt"
 	"html/template"
 	"log"
 	"net/http"
@@ -17,6 +10,14 @@ import (
 	"net/url"
 	"strconv"
 	"strings"
+
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/user"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/csrfToken"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/permission"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/authFiles/session"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/entity"
+	"github.com/kalmad99/Online-Electronics-Shopping-Project/frontend/form"
+	"golang.org/x/crypto/bcrypt"
 )
 
 // UserHandler handler handles user related requests
@@ -36,6 +37,7 @@ var ctxUserSessionKey = contextKey("signed_in_user_session")
 var name, email, phone, pass string
 var id, roleid uint
 
+var cid string
 // NewUserHandler returns new UserHandler object
 func NewUserHandler(t *template.Template, usrServ user.UserService,
 	sessServ user.SessionService, uRole user.RoleService,
@@ -62,11 +64,13 @@ func (uh *UserHandler) Authenticated(next http.Handler) http.Handler {
 func (uh *UserHandler) Authorized(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if uh.loggedInUser == nil {
+			// log.Println("Got here 65")
 			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 			return
 		}
 		roles, errs := uh.userService.UserRoles(uh.loggedInUser)
 		if len(errs) > 0 {
+			// log.Println("Got here 71")
 			http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 			return
 		}
@@ -74,6 +78,7 @@ func (uh *UserHandler) Authorized(next http.Handler) http.Handler {
 		for _, role := range roles {
 			permitted := permission.HasPermission(r.URL.Path, role.Name, r.Method)
 			if !permitted {
+				// log.Println("Got here 79")
 				http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 				return
 			}
@@ -81,6 +86,7 @@ func (uh *UserHandler) Authorized(next http.Handler) http.Handler {
 		if r.Method == http.MethodPost {
 			ok, err := csrfToken.ValidCSRF(r.FormValue("_csrf"), uh.csrfSignKey)
 			if !ok || (err != nil) {
+				// log.Println("Got here 87")
 				http.Error(w, http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 				return
 			}
@@ -99,11 +105,13 @@ func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		loginForm := struct {
 			Values  url.Values
 			VErrors form.ValidationErrors
-			CSRF    string
+			// UserID  string
+			CSRF string
 		}{
 			Values:  nil,
 			VErrors: nil,
-			CSRF:    token,
+			// UserID:  "",
+			CSRF: token,
 		}
 		uh.tmpl.ExecuteTemplate(w, "login.html", loginForm)
 		return
@@ -119,37 +127,44 @@ func (uh *UserHandler) Login(w http.ResponseWriter, r *http.Request) {
 		loginForm := form.Input{Values: r.PostForm, VErrors: form.ValidationErrors{}}
 		usr, errs := uh.userService.Login(r.FormValue("email"))
 		if len(errs) > 0 {
-			loginForm.VErrors.Add("generic", "Your email address or password is wrong")
+			loginForm.VErrors.Add("generic", "Your Email Address and/or Password is Wrong")
 			uh.tmpl.ExecuteTemplate(w, "login.html", loginForm)
 			return
 		}
 		err = bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(r.FormValue("password")))
 		if err == bcrypt.ErrMismatchedHashAndPassword {
-			loginForm.VErrors.Add("generic", "Your email address or password is wrong")
+			loginForm.VErrors.Add("generic", "Your Email Address and/or Password is Wrong")
 			uh.tmpl.ExecuteTemplate(w, "login.html", loginForm)
 			return
 		}
-
 		uh.loggedInUser = usr
 		claims := csrfToken.Claims(usr.Email, uh.userSess.Expires)
 		session.Create(claims, uh.userSess.UUID, uh.userSess.SigningKey, w)
 		newSess, errs := uh.sessionService.StoreSession(uh.userSess)
 		if len(errs) > 0 {
-			loginForm.VErrors.Add("generic", "Failed to store session")
+			loginForm.VErrors.Add("generic", "Failed to Store Session")
 			uh.tmpl.ExecuteTemplate(w, "login.layout", loginForm)
 			return
 		}
+		// usrid := fmt.Sprint(usr.ID)
+		// newloginForm := struct{
+		// 	loginForm  form.Input
+		// 	userID string
+		// }{
+		// 	loginForm: loginForm,
+		// 	userID: usrid,
+		// }
 		uh.userSess = newSess
 		roles, _ := uh.userService.UserRoles(usr)
 		if uh.checkAdmin(roles) {
+			// uh.tmpl.ExecuteTemplate(w, "login.html", newloginForm)
 			http.Redirect(w, r, "/admin", http.StatusSeeOther)
 			return
 		}
-		//err = uh.tmpl.ExecuteTemplate(w, "index.layout", usr)
-		//if err != nil {
-		//	panic(err)
-		//}
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+		cid = fmt.Sprint(usr.ID)
+		link := "/?userid=" + fmt.Sprint(usr.ID)
+		http.Redirect(w, r, link, http.StatusSeeOther)
+		// http.Redirect(w, r, "/", http.StatusSeeOther)
 	}
 }
 
@@ -194,16 +209,16 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 
 		// Validate the form contents
 		//log.Println("Got here 190")
-		singnUpForm := form.Input{Values: r.PostForm, VErrors: form.ValidationErrors{}}
-		singnUpForm.Required("name", "email", "password", "confpass")
-		singnUpForm.MatchesPattern("email", form.EmailRX)
-		singnUpForm.MatchesPhonePattern("phone", form.PhoneRX)
-		singnUpForm.MinLength("password", 8)
-		singnUpForm.PasswordMatches("password", "confpass")
-		singnUpForm.CSRF = token
+		signUpForm := form.Input{Values: r.PostForm, VErrors: form.ValidationErrors{}}
+		signUpForm.Required("name", "email", "password", "confpass")
+		signUpForm.MatchesPattern("email", form.EmailRX)
+		signUpForm.MatchesPhonePattern("phone", form.PhoneRX)
+		signUpForm.MinLength("password", 8)
+		signUpForm.PasswordMatches("password", "confpass")
+		signUpForm.CSRF = token
 		//If there are any errors, redisplay the signup form.
-		if !singnUpForm.Valid() {
-			err = uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", singnUpForm)
+		if !signUpForm.Valid() {
+			err = uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", signUpForm)
 			if err != nil {
 				panic(err.Error())
 			}
@@ -213,8 +228,8 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 
 		pExists := uh.userService.PhoneExists(r.FormValue("phone"))
 		if pExists {
-			singnUpForm.VErrors.Add("phone", "Phone Already Exists")
-			err := uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", singnUpForm)
+			signUpForm.VErrors.Add("phone", "Phone Already Exists")
+			err := uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", signUpForm)
 			if err != nil {
 				panic(err.Error())
 			}
@@ -223,30 +238,19 @@ func (uh *UserHandler) Signup(w http.ResponseWriter, r *http.Request) {
 		//log.Println("Got here 217")
 		eExists := uh.userService.EmailExists(r.FormValue("email"))
 		if eExists {
-			singnUpForm.VErrors.Add("email", "Email Already Exists")
-			err := uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", singnUpForm)
+			signUpForm.VErrors.Add("email", "Email Already Exists")
+			err := uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", signUpForm)
 			if err != nil {
 				panic(err.Error())
 			}
 			return
 		}
-		log.Println("Got here 227")
-		//hashedPassword, err := bcrypt.GenerateFromPassword([]byte(r.FormValue("password")), 12)
-		//if err != nil {
-		//	singnUpForm.VErrors.Add("password", "Password Could not be stored")
-		//	err := uh.tmpl.ExecuteTemplate(w, "signup.layout", singnUpForm)
-		//	if err != nil {
-		//		panic(err.Error())
-		//	}
-		//	return
-		//}
-
 		log.Println("Got here 238")
 		role, errs := uh.userRole.RoleByName("USER")
 
 		if len(errs) > 0 {
-			singnUpForm.VErrors.Add("role", "could not assign role to the user")
-			err := uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", singnUpForm)
+			signUpForm.VErrors.Add("role", "could not assign role to the user")
+			err := uh.tmpl.ExecuteTemplate(w, "Registrationform.layout", signUpForm)
 			if err != nil {
 				panic(err.Error())
 			}
@@ -337,7 +341,9 @@ func (uh *UserHandler) loggedIn(r *http.Request) bool {
 	if err != nil {
 		return false
 	}
+	//log.Println("Logged in ", c.Value)
 	ok, err := session.Valid(c.Value, userSess.SigningKey)
+
 	if !ok || (err != nil) {
 		return false
 	}
@@ -353,187 +359,44 @@ func (uh *UserHandler) checkAdmin(rs []entity.Role) bool {
 	return false
 }
 
-// AdminCategoryHandler handles category handler admin requests
-//type UserHandler struct {
-//	tmpl        *template.Template
-//	userSrv user.UserService
-//}
-//
-//// NewAdminCategoryHandler initializes and returns new AdminCateogryHandler
-//func NewUserHandler(t *template.Template, us user.UserService) *UserHandler {
-//	return &UserHandler{tmpl: t, userSrv: us}
-//}
-//
-// Users handle requests on route /admin/users
 func (uh *UserHandler) Users(w http.ResponseWriter, r *http.Request) {
 	users, errs := uh.userService.Users()
 	if errs != nil {
 		panic(errs)
 	}
-	uh.tmpl.ExecuteTemplate(w, "admin.user.layout", users)
+	uh.tmpl.ExecuteTemplate(w, "admin.users.layout", users)
 }
 
-//
-//// AdminCategoriesNew hanlde requests on route /admin/categories/new
-//func (uh *UserHandler) UserNew(w http.ResponseWriter, req *http.Request) {
-//
-//	if req.Method != "POST" {
-//		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
-//		return
-//	}
-//
-//	usr := entity.User{}
-//	usr.Name = req.FormValue("name")
-//	usr.Email = req.FormValue("email")
-//	usr.Phone = req.FormValue("phone")
-//	usr.Password = req.FormValue("password")
-//
-//	name = usr.Name
-//	email = usr.Email
-//	phone = usr.Phone
-//	pass = usr.Password
-//
-//	hostURL := "smtp.gmail.com"
-//	hostPort := "587"
-//	emailSender := "kalemesfin12go@gmail.com"
-//	password := "qnzfgwbnaxykglvu"
-//	emailReceiver := usr.Email
-//
-//	emailAuth := smtp.PlainAuth(
-//		"",
-//		emailSender,
-//		password,
-//		hostURL,
-//	)
-//
-//	msg := []byte("To: " + emailReceiver + "\r\n" +
-//		"Subject: " + "Hello " + usr.Name + "\r\n" +
-//		"This is your OTP. 123456789")
-//
-//	err:=	smtp.SendMail(
-//		hostURL + ":" + hostPort,
-//		emailAuth,
-//		emailSender,
-//		[]string{emailReceiver},
-//		msg,
-//	)
-//
-//	if err != nil{
-//		fmt.Print("Error: ", err)
-//	}
-//	fmt.Print("Email Sent")
-//
-//	//err = userService.StoreUser(usr)
-//	//if err!=nil{
-//	//	panic(err.Error())
-//	//}
-//
-//	//_ = tmpl.ExecuteTemplate(w, "Registrationformpart2.html", info)
-//	_ = uh.tmpl.ExecuteTemplate(w, "registotp.html", usr)
-//
-//	//err = userService.StoreUser(usr)
-//	//if err!=nil{
-//	//	http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
-//	//	//panic(err.Error())
-//	//}
-//}
-//func (uh *UserHandler) Registration2(w http.ResponseWriter, req *http.Request) {
-//	if req.Method != "POST"{
-//		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
-//		return
-//	}
-//	otp := req.FormValue("otpfield")
-//
-//	usrinfo := &entity.User{ID:id, Name:name, Email:email, Phone:phone, Password:pass}
-//
-//	if otp == "123456789" {
-//		//_ = tpl.ExecuteTemplate(w, "update.html", usrinfo)
-//		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
-//		_, err := uh.userSrv.StoreUser(usrinfo)
-//		if err!=nil{
-//			http.Redirect(w, req, "/Registration2", http.StatusSeeOther)
-//			//panic(err.Error())
-//		}
-//	} else{
-//		fmt.Print("Wrong otp")
-//		http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
-//	}
-//	http.Redirect(w, req, "/Registpage", http.StatusSeeOther)
-//	return
-//}
-//
-//func (uh *UserHandler) UserLogin(w http.ResponseWriter, req *http.Request) {
-//	if req.Method != "POST" {
-//		http.Redirect(w, req, "/Loginpage", http.StatusSeeOther)
-//		return
-//	}
-//	email := req.FormValue("email")
-//	password := req.FormValue("password")
-//
-//	log.Println(email)
-//	usr, errs := uh.userSrv.Login(email)
-//
-//	if len(errs) > 0{
-//		panic(errs)
-//	}
-//
-//	//log.Println(usr.Name)
-//	//log.Println(usr.Email)
-//	//log.Println(usr.Phone)
-//	//log.Println(usr.Password)
-//
-//	err := bcrypt.CompareHashAndPassword([]byte(usr.Password), []byte(password))
-//	if err != nil {
-//		log.Println("Username or Password is incorrect")
-//		http.Redirect(w, req, "/Loginpage", 301)
-//		return
-//	}
-//	err = uh.tmpl.ExecuteTemplate(w, "user.index.layout", usr)
-//	if err != nil {
-//		panic(err.Error())
-//	}
-//}
-//
-//// AdminCategoriesUpdate handle requests on /admin/categories/update
-//func (uh *UserHandler) UserUpdate(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		usr, errs := uh.userSrv.User(uint(id))
-//
-//		if len(errs) > 0 {
-//			panic(errs)
-//		}
-//
-//		uh.tmpl.ExecuteTemplate(w, "user.update.layout", usr)
-//
-//	} else if r.Method == http.MethodPost {
-//
-//		usr := &entity.User{}
-//		id, _ := strconv.Atoi(r.FormValue("id"))
-//		usr.ID = uint(id)
-//		usr.Name = r.FormValue("name")
-//		usr.Email = r.FormValue("email")
-//		usr.Phone = r.FormValue("phone")
-//
-//		_, errs := uh.userSrv.UpdateUser(usr)
-//
-//		if len(errs) > 0 {
-//			panic(errs)
-//		}
-//		http.Redirect(w, r, "/Loginpage", http.StatusSeeOther)
-//	}
-//}
-//
-//
+func (uh *UserHandler) User(w http.ResponseWriter, r *http.Request) {
+	token, err := csrfToken.CSRFToken(uh.csrfSignKey)
+	if err != nil {
+		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
+	}
+	if r.Method == http.MethodGet{
+		idraw := r.URL.Query().Get("id")
+		id, _ := strconv.Atoi(idraw)
+		usr, errs := uh.userService.User(uint(id))
+		if errs != nil {
+			panic(errs)
+		}
+		userProf := struct {
+			Values  url.Values
+			VErrors form.ValidationErrors
+			CSRF    string
+			User    *entity.User
+		}{
+			Values:  nil,
+			VErrors: nil,
+			CSRF:    token,
+			User:    usr,
+		}
 
+		uh.tmpl.ExecuteTemplate(w, "user.index.layout", userProf)
+	}
+	if r.Method == http.MethodPost{
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
+	}
+}
 // UsersUpdate handles GET/POST /users/update?id={id} request
 func (uh *UserHandler) UsersUpdate(w http.ResponseWriter, r *http.Request) {
 	token, err := csrfToken.CSRFToken(uh.csrfSignKey)
@@ -569,7 +432,10 @@ func (uh *UserHandler) UsersUpdate(w http.ResponseWriter, r *http.Request) {
 			User:    user,
 			CSRF:    token,
 		}
-		uh.tmpl.ExecuteTemplate(w, "user.update.layout", upAccForm)
+		err = uh.tmpl.ExecuteTemplate(w, "user.update.html", upAccForm)
+		if err != nil {
+			panic(err)
+		}
 		return
 	}
 
@@ -635,7 +501,7 @@ func (uh *UserHandler) UsersUpdate(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 			return
 		}
-		http.Redirect(w, r, "/users", http.StatusSeeOther)
+		http.Redirect(w, r, "/userprof?id=" + cid, http.StatusSeeOther)
 	}
 }
 
@@ -652,12 +518,14 @@ func (uh *UserHandler) UsersDelete(w http.ResponseWriter, r *http.Request) {
 		if len(errs) > 0 {
 			http.Error(w, http.StatusText(http.StatusNotFound), http.StatusNotFound)
 		}
+
 		userSess, _ := r.Context().Value(ctxUserSessionKey).(*entity.Session)
 		session.Remove(userSess.UUID, w)
 		uh.sessionService.DeleteSession(userSess.UUID)
-		http.Redirect(w, r, "/", http.StatusSeeOther)
+
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	http.Redirect(w, r, "/", http.StatusSeeOther)
+	http.Redirect(w, r, "/login", http.StatusSeeOther)
 }
 
 // AdminUsersDelete handles Delete /admin/users/delete?id={id} request
@@ -675,116 +543,3 @@ func (uh *UserHandler) AdminUsersDelete(w http.ResponseWriter, r *http.Request) 
 	}
 	http.Redirect(w, r, "/admin/users", http.StatusSeeOther)
 }
-
-//// AdminCategoriesDelete handle requests on route /admin/categories/delete
-//func (uh *UserHandler) UserDelete(w http.ResponseWriter, r *http.Request) {
-//
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		_, errs := uh.userSrv.DeleteUser(uint(id))
-//
-//		if len(errs) > 0 {
-//			panic(err)
-//		}
-//
-//	}
-//
-//	http.Redirect(w, r, "/users", http.StatusSeeOther)
-//}
-//
-//func (uh *UserHandler) UserChangePassword(w http.ResponseWriter, r *http.Request) {
-//	if r.Method == http.MethodGet {
-//
-//		idRaw := r.URL.Query().Get("id")
-//		id, err := strconv.Atoi(idRaw)
-//
-//		if err != nil {
-//			panic(err)
-//		}
-//
-//		usr, errs := uh.userSrv.User(uint(id))
-//
-//		if len(errs) > 0 {
-//			panic(errs)
-//		}
-//
-//		uh.tmpl.ExecuteTemplate(w, "changepass.layout", usr)
-//
-//	}
-//	usr := &entity.User{}
-//	id, _ := strconv.Atoi(r.FormValue("id"))
-//	//usr.ID = uint(id)
-//	usr.ID = uint(id)
-//	user, err1 := uh.userSrv.User(usr.ID)
-//	if len(err1) > 0{
-//		panic(err1)
-//	}
-//
-//	log.Println(usr.ID)
-//	usr.Password = r.FormValue("password")
-//	var confp = r.FormValue("confpass")
-//	var oldp = r.FormValue("oldpass")
-//
-//	err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(oldp))
-//	if err != nil {
-//		log.Println("This is not your old password")
-//		http.Redirect(w, r, "/users", 301)
-//		return
-//	}
-//	if usr.Password == confp {
-//
-//		hashedpass, err := bcrypt.GenerateFromPassword([]byte(usr.Password), bcrypt.DefaultCost)
-//		if err != nil {
-//			//http.Error(w, "Server error, unable to create your account.", 500)
-//			//return errors.New("server error, unable to create your account")
-//			panic(err.Error())
-//		}
-//		usr.Password=string(hashedpass)
-//
-//		_, errs := uh.userSrv.ChangePassword(usr)
-//		log.Println("Succesfully changed")
-//		http.Redirect(w, r, "/Loginpage", 303)
-//		if len(errs) > 0{
-//			panic(errs)
-//		}
-//	}else{
-//		log.Println("Passwords don't match")
-//		uh.tmpl.ExecuteTemplate(w, "user.update.layout", nil)
-//	}
-//
-//
-//
-//	//usr := &entity.User{}
-//	//id, _ := strconv.Atoi(r.FormValue("id"))
-//	//usr.ID = uint(id)
-//	//usr.Name = r.FormValue("name")
-//	//usr.Email = r.FormValue("email")
-//	//usr.Phone = r.FormValue("phone")
-//	//usr.Password = r.FormValue("newpass")
-//	//var confp = r.FormValue("confnewpass")
-//	//
-//	//if usr.Password == confp{
-//	//	hashedpass, err := bcrypt.GenerateFromPassword([]byte(usr.Password), bcrypt.DefaultCost)
-//	//	if err != nil {
-//	//		panic(err.Error())
-//	//	}
-//	//	usr.Password=string(hashedpass)
-//	//
-//	//	_, errs := uh.userSrv.ChangePassword(usr)
-//	//
-//	//	if len(errs) > 0 {
-//	//		panic(errs)
-//	//	}
-//	//}else{
-//	//	errors.New("The passwords you entered dont match")
-//	//}
-//	//http.Redirect(w, r, "/users", http.StatusSeeOther)
-//}

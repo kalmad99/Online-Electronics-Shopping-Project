@@ -2,11 +2,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>{{.Name}}</title>
+    <title>{{.User.Name}}</title>
 </head>
 <body>
-    <h2>Hello {{ .Name }}</h2>
-    <h2><a href="/user/update/?id={{.ID}}">Edit Account</a></h2>
-    <h2><a href="/user/update/?id={{.ID}}">Log Out</a></h2>
+    <h2>Hello {{ .User.Name }}</h2>
+    <a href="/user/update?id={{.User.ID}}"><button>Edit Account</button></a>
+    <a href="/user/delete?id={{.User.ID}}"><button>Delete Account</button></a>
+    <form method="POST" action="/logout" class="form-inline mt-2 mt-md-0">
+        <input type="hidden" name="_csrf" value="{{ .CSRF }}" />
+        <input type="submit" value="LogOut">
+    </form>
 </body>
 </html>

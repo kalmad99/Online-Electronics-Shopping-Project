@@ -123,7 +123,7 @@ func (sph *SellerProductHandler) SellerProductsNew(w http.ResponseWriter, r *htt
 			panic(errs)
 			//http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		} else {
-			http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
+			http.Redirect(w, r, "/admin/products", http.StatusSeeOther)
 
 		}
 	}
@@ -249,7 +249,7 @@ func (sph *SellerProductHandler) SellerProductsUpdate(w http.ResponseWriter, r *
 		//	return
 		//}
 
-		http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
+		http.Redirect(w, r, "/admin/products", http.StatusSeeOther)
 		return
 	}
 }
@@ -275,7 +275,7 @@ func (sph *SellerProductHandler) SellerProductsDelete(w http.ResponseWriter, r *
 
 	}
 
-	http.Redirect(w, r, "/seller/products", http.StatusSeeOther)
+	http.Redirect(w, r, "/admin/products", http.StatusSeeOther)
 }
 
 func (sph *SellerProductHandler) SearchProducts(w http.ResponseWriter, r *http.Request) {

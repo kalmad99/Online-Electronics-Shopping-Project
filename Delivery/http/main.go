@@ -20,14 +20,76 @@ import (
 
 	crepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart/repository"
 	csrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart/service"
+
+	orepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/order/repository"
+	osrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/order/usecase"
+
+	brepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/bank/repository"
+	bsrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/bank/usecase"
 )
 
 func createTables(dbconn *gorm.DB) []error {
-	errs := dbconn.CreateTable(&entity.User{}, &entity.Role{}, &entity.Session{}, &entity.Product{}, &entity.Bank{}, &entity.Category{}).GetErrors()
-	//errs := dbconn.CreateTable(&entity.Bank{}).GetErrors()
-	if errs != nil {
-		return errs
+	if !dbconn.HasTable(&entity.User{}) {
+		errs := dbconn.CreateTable(&entity.User{}).GetErrors()
+		dbconn.Exec("Insert into users (name, email, phone, password, role_id) values ('admin', 'admin123@gmail.com'," +
+			"'+251911111111', 'admin123', 1;")
+		if errs != nil {
+			return errs
+		}
+		return nil
 	}
+	if !dbconn.HasTable(&entity.Role{}) {
+		errs := dbconn.CreateTable(&entity.Role{}).GetErrors()
+		dbconn.Exec("Insert into roles (name) values ('ADMIN')")
+		dbconn.Exec("Insert into roles (name) values ('USER')")
+		if errs != nil {
+			return errs
+		}
+		return nil
+	}
+	if !dbconn.HasTable(&entity.Session{}) {
+		errs := dbconn.CreateTable(&entity.Session{}).GetErrors()
+		if errs != nil {
+			return errs
+		}
+		return nil
+	}
+	if !dbconn.HasTable(&entity.Product{}) {
+		errs := dbconn.CreateTable(&entity.Product{}).GetErrors()
+		if errs != nil {
+			return errs
+		}
+		return nil
+	}
+	if !dbconn.HasTable(&entity.Bank{}) {
+		errs := dbconn.CreateTable(&entity.Bank{}).GetErrors()
+		dbconn.Exec("Insert into banks (account_no, balance) values ('111111', 120000.00)")
+		dbconn.Exec("Insert into banks (account_no, balance) values ('222222', 9000.00)")
+		dbconn.Exec("Insert into banks (account_no, balance) values ('333333', 30000.00)")
+		if errs != nil {
+			return errs
+		}
+		return nil
+	}
+	if !dbconn.HasTable(&entity.Category{}) {
+		errs := dbconn.CreateTable(&entity.Category{}).GetErrors()
+		if errs != nil {
+			return errs
+		}
+		return nil
+	}
+	if !dbconn.HasTable(&entity.Order{}) {
+		errs := dbconn.CreateTable(&entity.Order{}).GetErrors()
+		if errs != nil {
+			return errs
+		}
+		return nil
+	}
+	//errs := dbconn.CreateTable(&entity.User{}, &entity.Role{}, &entity.Session{}, &entity.Product{}, &entity.Bank{}, &entity.Category{}).GetErrors()
+	////errs := dbconn.CreateTable(&entity.Cart{}).GetErrors()
+	//if errs != nil {
+	//	return errs
+	//}
 	return nil
 }
 
@@ -36,8 +98,7 @@ func main() {
 	csrfSignKey := []byte(csrfToken.GenerateRandomID(32))
 	tmpl := template.Must(template.ParseGlob("../../frontend/ui/templates/*"))
 
-	//dbconn, err := gorm.Open("postgres", "postgres://postgres:P@$$w0rdD2@localhost/restaurantdb?sslmode=disable")
-	dbconn, err := gorm.Open("postgres", "postgres://postgres:password@localhost/restaurantdb4?sslmode=disable")
+	dbconn, err := gorm.Open("postgres", "postgres://postgres:password@localhost/project?sslmode=disable")
 
 	createTables(dbconn)
 
@@ -65,14 +126,22 @@ func main() {
 	roleRepo := urepimp.NewRoleGormRepo(dbconn)
 	roleServ := usrvimp.NewRoleService(roleRepo)
 
+	orderRepo := orepim.NewOrderGormRepo(dbconn)
+	orderServ := osrvim.NewOrderService(orderRepo)
+
+	bankRepo := brepim.NewBankGormRepo(dbconn)
+	bankServ := bsrvim.NewBankService(bankRepo)
+
 	ach := handler.NewAdminCategoryHandler(tmpl, categoryServ, csrfSignKey)
+	oh := handler.NewOrderHandler(tmpl, orderServ, userServ, itemServ, csrfSignKey)
 	sph := handler.NewSellerProductHandler(tmpl, itemServ, csrfSignKey)
 	mh := handler.NewMenuHandler(tmpl, itemServ, csrfSignKey)
-	ch := handler.NewCartHandler(tmpl, cartServ, csrfSignKey)
+	bh := handler.NewPayHandler(tmpl, bankServ, userServ, orderServ, cartServ, csrfSignKey)
 	arh := handler.NewAdminRoleHandler(roleServ)
 
 	sess := ConfigSessions()
 	uh := handler.NewUserHandler(tmpl, userServ, sessionSrv, roleServ, sess, csrfSignKey)
+	ch := handler.NewCartHandler(tmpl, cartServ, userServ, sessionSrv, roleServ, sess, itemServ, csrfSignKey)
 
 	fs := http.FileServer(http.Dir("../../frontend/ui/assets"))
 	http.Handle("/assets/", http.StripPrefix("/assets/", fs))
@@ -84,6 +153,7 @@ func main() {
 	http.Handle("/admin", uh.Authenticated(uh.Authorized(http.HandlerFunc(mh.Admin))))
 	http.HandleFunc("/Loginpage", mh.LoginPage)
 	http.HandleFunc("/Registpage", mh.RegistPage)
+	http.HandleFunc("/pay/success", mh.PaySuccess)
 
 	http.Handle("/admin/users", uh.Authenticated(uh.Authorized(http.HandlerFunc(uh.Users))))
 	http.Handle("/admin/categories", uh.Authenticated(uh.Authorized(http.HandlerFunc(ach.AdminCategories))))
@@ -100,28 +170,43 @@ func main() {
 
 	http.HandleFunc("/category", ach.ItemsinCategories)
 
-	http.Handle("/seller/products", uh.Authenticated(http.HandlerFunc(sph.SellerProducts)))
+	http.Handle("/admin/products", uh.Authenticated(uh.Authorized(http.HandlerFunc(sph.SellerProducts))))
 	//http.Handle("/seller/products",uh.Authenticated(http.HandlerFunc(sph.SellerProducts)))
-	http.Handle("/seller/products/new", uh.Authenticated(http.HandlerFunc(sph.SellerProductsNew)))
-	http.Handle("/seller/products/update", uh.Authenticated(http.HandlerFunc(sph.SellerProductsUpdate)))
-	http.Handle("/seller/products/delete", uh.Authenticated(http.HandlerFunc(sph.SellerProductsDelete)))
-	http.HandleFunc("/searchProducts", sph.SearchProducts)
-	http.HandleFunc("/detail", sph.ProductDetail)
-	http.HandleFunc("/rate", sph.Rating)
+	http.Handle("/admin/products/new", uh.Authenticated(uh.Authorized(http.HandlerFunc(sph.SellerProductsNew))))
+	http.Handle("/admin/products/update", uh.Authenticated(uh.Authorized(http.HandlerFunc(sph.SellerProductsUpdate))))
+	http.Handle("/admin/products/delete", uh.Authenticated(uh.Authorized(http.HandlerFunc(sph.SellerProductsDelete))))
 
 	http.Handle("/admin/carts", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetCarts))))
-	http.Handle("/admin/cart", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetSingleCart))))
+	http.Handle("/admin/cart", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetUserCart))))
 
-	http.HandleFunc("/users/success", uh.UsersUpdate)
-	http.HandleFunc("/user/update", uh.UsersUpdate)
-	//http.HandleFunc("/admin/users",userHandler.Users)
+	http.Handle("/admin/orders", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.Orders))))
+	http.Handle("/admin/order", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.GetUserOrder))))
+	http.Handle("/admin/order/delete", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.OrderDelete))))
+
+
+	http.Handle("/getusercart", uh.Authenticated(http.HandlerFunc(ch.GetUserCart)))
+	http.Handle("/deleteitemcart", uh.Authenticated(http.HandlerFunc(ch.UpdateCart)))
+	http.Handle("/addtocart", uh.Authenticated(http.HandlerFunc(ch.AddtoCart)))
+
+	http.Handle("/pay", uh.Authenticated(http.HandlerFunc(bh.MakePayment)))
+
+	http.Handle("/cart/buy", uh.Authenticated(http.HandlerFunc(oh.OrderNew)))
+	http.Handle("/getorder", uh.Authenticated(http.HandlerFunc(oh.GetUserOrder)))
+	http.Handle("/order/delete", uh.Authenticated(http.HandlerFunc(oh.OrderDelete)))
+
 	http.HandleFunc("/registrationprocess1", uh.Signup)
 	http.HandleFunc("/Registration2", uh.Registration2)
 	http.HandleFunc("/user/delete", uh.UsersDelete)
-	//http.HandleFunc("/user/changepass", uh.UserChangePassword)
 	http.HandleFunc("/login", uh.Login)
-	http.HandleFunc("/logout", uh.Logout)
-	//http.HandleFunc("/cart", uh.Cart)
+	http.HandleFunc("/searchProducts", sph.SearchProducts)
+	http.HandleFunc("/detail", sph.ProductDetail)
+	http.HandleFunc("/rate", sph.Rating)
+	http.Handle("/userprof", uh.Authenticated(http.HandlerFunc(uh.User)))
+	http.Handle("/user/update", uh.Authenticated(http.HandlerFunc(uh.UsersUpdate)))
+
+	http.Handle("/logout", uh.Authenticated(http.HandlerFunc(uh.Logout)))
+
+
 	http.ListenAndServe(":8080", nil)
 }
 

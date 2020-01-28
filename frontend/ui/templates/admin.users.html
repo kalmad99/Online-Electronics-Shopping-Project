@@ -16,18 +16,16 @@
         <th scope="col">FullName</th>
         <th scope="col">Email</th>
         <th scope="col">Phone</th>
-        <th scope="col">Password</th>
         <th scope="col">RoleID</th>
       </tr>
     </thead>
     <tbody>
-      {{ range .Users }}
+      {{ range . }}
       <tr>
         <td> {{ .ID }} </td>
-        <td> {{ .FullName }} </td>
+        <td> {{ .Name }} </td>
         <td> {{ .Email }} </td>
         <td> {{ .Phone }} </td>
-        <td> {{ .Password }} </td>
         <td> {{ .RoleID }} </td>
       </tr>
       {{ end }}

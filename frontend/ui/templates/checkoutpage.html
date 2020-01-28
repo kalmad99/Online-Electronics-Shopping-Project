@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Checkout</title>
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+</head>
+<body>
+    <div class="row">
+        <div class="col-lg-12">
+            Your Orders
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <h2>{{ .Order.CreatedAt }}</h2>
+        </div>
+        <h2 style="display: none">{{.Order.ID}}</h2>
+    </div>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Image</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ range .Products }}
+            <tr>
+                <td> {{ .Name }} </td>
+                <td> <img src="../assets/img/{{ .Image }}" width="70rem" height="70rem" /> </td>
+            </tr>
+        {{ end }}
+        </tbody>
+    </table>
+    <h2 id="tot">{{ .Order.Total }}</h2>
+    <a href="/pay?id={{.Order.ID}}"><button id="pay" style="padding: 10px; background-color: teal; color: white">Confirm Order</button></a>
+    <a href="/order/delete?id={{.Order.ID}}"><button style="padding: 10px; background-color: teal; color: white">Go Back</button></a>
+
+<script src="../assets/js/jquery-3.4.1.min.js"></script>
+{{/*<script src="../assets/js/makepayment.js"></script>*/}}
+</body>
+</html>

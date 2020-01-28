@@ -34,10 +34,10 @@ func (os *OrderService) Order(id uint) (*entity.Order, []error) {
 }
 
 // CustomerOrders returns all orders of a given customer
-func (os *OrderService) CustomerOrders(customer *entity.User) ([]entity.Order, []error) {
+func (os *OrderService) CustomerOrders(customer *entity.User) (entity.Order, []error) {
 	ords, errs := os.orderRepo.CustomerOrders(customer)
 	if len(errs) > 0 {
-		return nil, errs
+		return ords, errs
 	}
 	return ords, errs
 }
@@ -53,7 +53,7 @@ func (os *OrderService) UpdateOrder(order *entity.Order) (*entity.Order, []error
 
 // DeleteOrder deletes a given order
 func (os *OrderService) DeleteOrder(id uint) (*entity.Order, []error) {
-	ord, errs := os.DeleteOrder(id)
+	ord, errs := os.orderRepo.DeleteOrder(id)
 	if len(errs) > 0 {
 		return nil, errs
 	}
@@ -62,7 +62,7 @@ func (os *OrderService) DeleteOrder(id uint) (*entity.Order, []error) {
 
 // StoreOrder stores a given order
 func (os *OrderService) StoreOrder(order *entity.Order) (*entity.Order, []error) {
-	ord, errs := os.StoreOrder(order)
+	ord, errs := os.orderRepo.StoreOrder(order)
 	if len(errs) > 0 {
 		return nil, errs
 	}

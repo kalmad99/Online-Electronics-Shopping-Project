@@ -10,7 +10,7 @@
       <h2>Update Product</h2>
     </div>
     <div class="container">
-      <form method="POST" action="/seller/products/update" enctype="multipart/form-data">
+      <form method="POST" action="/admin/products/update" enctype="multipart/form-data">
         <input type="hidden" name='_csrf' value='{{ .CSRF }}' />
         <input type="hidden" name='id' id='id' value='{{ .Product.ID }}' />
         <input type="hidden" name='proid' value='{{ .Values.Get "proid" }}' />

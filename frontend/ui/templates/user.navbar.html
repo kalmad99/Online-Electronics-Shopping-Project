@@ -14,7 +14,7 @@
 
     <body>
     <nav class="navbar navbar-light fixed-top flex-md-nowrap p-0" style="background-color: #e3f2fd;">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">3Y Restaurant</a>
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">E&E - User Profile</a>
     </nav>
 
     <div class="container-fluid">
@@ -23,37 +23,24 @@
                 <div class="sidebar-sticky">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/user">
+                            <a class="nav-link active" href="/userprof?id={{.User.ID}}">
                                 <span data-feather="home"></span>
-                                Dashboard <span class="sr-only">(current)</span>
+                                Home <span class="sr-only">(current)</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/user/update">
+                            <a class="nav-link" href="/user/update?id={{.User.ID}}">
                                 <span data-feather="update"></span>
                                 Update Account
                             </a>
                         </li>
-						<li class="nav-item">
-                            <a class="nav-link" href="#">
-                                <span data-feather="logout"></span>
-                                Log Out
-                            </a>
-                        </li>
-						<li class="nav-item">
-                            <a class="nav-link" href="/user/delete">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/user/delete?id={{.User.ID}}">
                                 <span data-feather="delete"></span>
                                 Delete Account
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/user/changepass">
-                                <span data-feather="changepass"></span>
-                                Change Password
-                            </a>
-                        </li>
                     </ul>
-
                 </div>
             </nav>
         </div>

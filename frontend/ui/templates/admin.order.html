@@ -1,0 +1,36 @@
+{{ define "admin.order.layout" }}
+    {{ template "admin.navbar" . }}
+    {{ template "admin.order.content" . }}
+    {{ template "admin.footer" . }}
+{{ end }}
+
+{{ define "admin.order.content"}}
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div
+                class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h2>Orders</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">User ID</th>
+                <th scope="col">Ordered At</th>
+                <th scope="col">Items in Order</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{ range .Orders }}
+                <tr>
+                    <th scope="row"> {{ .ID }} </th>
+                    <td> {{ .UserID }} </td>
+                    <td> {{ .CreatedAt }} </td>
+                    <td> {{ .ItemsID }} </td>
+                    <td> {{ .Total }} </td>
+                </tr>
+            {{ end }}
+            </tbody>
+        </table>
+    </main>
+{{ end }}

@@ -30,6 +30,7 @@
 
     <link rel="stylesheet" href="../assets/fontawesome-free-5.11.2-web/css/all.min.css" type="text/css" media="all">
 
+{{/*    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">*/}}
     <!-- Modernizer JS -->
     <!-- <script src="assets/js/vendor/modernizr-2.8.3.min.js"></script> -->
 </head>
@@ -81,14 +82,18 @@
                             <!-- Wishlist -->
                             <a href="#" class="header-wishlist"><i class="ti-heart"></i> <span class="number">3</span></a>
                             <!-- Cart -->
-                            <a href="/cart" class="header-cart"><i class="ti-shopping-cart"></i> <span class="number">3</span></a>
+                            <a id="usercart" href="#" class="header-cart"><i class="ti-shopping-cart"></i> <span class="number">3</span></a>
 
                         </div><!-- Header Shop Links End -->
 
                         <!-- Header Account Links Start -->
                         <div class="header-account-links">
-                            <a href="/Loginpage"><i class="icofont icofont-user-alt-7"></i> <span>my account</span></a>
+                            <a href="/login"><i class="icofont icofont-user-alt-7"></i> <span>my account</span></a>
                         </div><!-- Header Account Links End -->
+{{/*                        <form method="POST" action="/logout" class="form-inline mt-2 mt-md-0">*/}}
+{{/*                            <input type="hidden" name="_csrf" value="{{ .CSRF }}" />*/}}
+{{/*                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Logout</button>*/}}
+{{/*                        </form>*/}}
                     </div>
                 </div>
 

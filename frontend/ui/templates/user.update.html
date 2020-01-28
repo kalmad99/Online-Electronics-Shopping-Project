@@ -1,10 +1,12 @@
-{{ define "user.update.layout" }}
-  {{ template "navbar" . }}
-  {{ template "user.update.content" . }}
-  {{ template "footer" . }}
-{{ end }}
+{{/*{{ define "user.update.layout" }}*/}}
+{{/*  {{ template "navbar" . }}*/}}
+{{/*  {{ template "user.update.content" . }}*/}}
+{{/*  {{ template "footer" . }}*/}}
+{{/*{{ end }}*/}}
 
-{{ define "user.update.content"}}
+{{/*{{ define "user.update.content"}}*/}}
+<html>
+<head>
   <style>
     .form-account {
       width: 100%;
@@ -21,12 +23,15 @@
       margin: 10px;
     }
   </style>
-  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-    <div
-            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-      <h2>Create Account</h2>
+  <link rel="stylesheet" href="../assets/css/registr.css"/>
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css"/>
+</head>
+<body>
+ <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h2 style="align-content: center">Edit Account</h2>
     </div>
-    <form class="form-account" method="POST" action="/users/update">
+    <form class="form-account" method="POST" action="/user/update">
       <input type="hidden" name="_csrf" value="{{ .CSRF }}" />
       <input class="form-control" type='hidden' name='userid' value='{{ .Values.Get "userid" }}' />
       <div class="col-auto">
@@ -56,8 +61,10 @@
       <button type='submit' class='btn btn-primary float-right'>Update Account</button>
     </form>
   </main>
+</body>
+</html>
 
-{{ end }}
+
 {{/*{{ define "user.update.layout" }}*/}}
 {{/*  {{ template "user.navbar" . }}*/}}
 {{/*  {{ template "user.update.content" . }}*/}}

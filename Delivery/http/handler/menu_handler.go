@@ -34,7 +34,8 @@ func (mh *MenuHandler) Index(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 	}
-
+//run this
+//wait ande. chrome 62 tab tekeftual.lag eyarege new
 	//products, err := mh.productSrv.Items()
 	//if err != nil {
 	//	panic(err)
@@ -48,11 +49,13 @@ func (mh *MenuHandler) Index(w http.ResponseWriter, r *http.Request) {
 		VErrors  form.ValidationErrors
 		Products []entity.Product
 		CSRF     string
+		UserID   string
 	}{
 		Values:   nil,
 		VErrors:  nil,
 		Products: products,
 		CSRF:     token,
+		UserID:   r.FormValue("userid"),
 	}
 
 	mh.tmpl.ExecuteTemplate(w, "index.layout", tmplData)
@@ -103,4 +106,8 @@ func (mh *MenuHandler) LoginPage(w http.ResponseWriter, req *http.Request) {
 
 func (mh *MenuHandler) ProductDetail(w http.ResponseWriter, req *http.Request) {
 	mh.tmpl.ExecuteTemplate(w, "productdetail.html", nil)
+}
+
+func (mh *MenuHandler) PaySuccess(w http.ResponseWriter, req *http.Request) {
+	mh.tmpl.ExecuteTemplate(w, "pay.success.html", nil)
 }

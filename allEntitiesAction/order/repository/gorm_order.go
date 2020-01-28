@@ -72,11 +72,11 @@ func (orderRepo *OrderGormRepo) StoreOrder(order *entity.Order) (*entity.Order, 
 }
 
 // CustomerOrders returns list of orders from the database for a given customer
-func (orderRepo *OrderGormRepo) CustomerOrders(customer *entity.User) ([]entity.Order, []error) {
-	custOrders := []entity.Order{}
+func (orderRepo *OrderGormRepo) CustomerOrders(customer *entity.User) (entity.Order, []error) {
+	custOrders := entity.Order{}
 	errs := orderRepo.conn.Model(customer).Related(&custOrders, "Orders").GetErrors()
 	if len(errs) > 0 {
-		return nil, errs
+		return custOrders, errs
 	}
 	return custOrders, errs
 }

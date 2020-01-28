@@ -1,6 +1,6 @@
-let csrf = document.getElementById("csrf");
-let token = csrf.innerHTML;
-
+let cookie = document.getElementById("cookiename");
+let token = cookie.innerHTML;
+let cookieval = $.cookie(token);
 // console.log(parseJwt(token));
 // let par = parseJwt(csrf.innerHTML);
 // if (par){
@@ -54,12 +54,13 @@ let parseJwt = token =>
 
 // let csrf = document.getElementById("csrf");
 let out = document.getElementById("email");
-    out.value = JSON.stringify(
-        parseJwt(csrf.innerHTML)
-    );
+out.value = JSON.stringify(
+    parseJwt(cookieval)
+);
+let email = out.value[0];
 //
 // console.log(csrf.innerHTML);
-console.log(out.value);
+console.log(email);
 
 
 // function parseJwt () {
