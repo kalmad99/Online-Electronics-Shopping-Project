@@ -1,0 +1,75 @@
+{{ define "seller.product.new.layout" }}
+{{ template "seller.navbar" . }}
+{{ template "seller.product.new.content" . }}
+{{ template "seller.footer" . }}
+{{ end }}
+
+{{ define "seller.product.new.content"}}
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h2>Add New Products</h2>
+  </div>
+  <div class="container">
+    <form method="POST" action="/seller/products/new" enctype="multipart/form-data">
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="name" id="name" placeholder="Product Name" required>
+        </div>
+      </div>
+{{/*      <div class="form-group row">*/}}
+{{/*        <label for="name" class="col-sm-2 col-form-label">Item Type</label>*/}}
+{{/*        <div class="col-sm-10">*/}}
+{{/*          <input type="text" class="form-control" name="type" id="type" placeholder="Product Type">*/}}
+{{/*        </div>*/}}
+{{/*      </div>*/}}
+      <div class="col-auto">
+        <label for='type' class='col-form-label'>Category Type</label>
+        <select name='type' id='role' class='form-control'>
+          <option value='' disabled selected>Choose Category</option>
+          <option value='1'> Mobile</option>
+          <option value='2'> Computer</option>
+          <option value='3'> Camera</option>
+          <option value='4'> Tablet</option>
+        </select>
+      </div>
+        <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Quantity</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" name="quantity" id="quantity" required placeholder="Product Quantity">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Price</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" required name="price" id="price" placeholder="Product Price">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="description" class="col-sm-2 col-form-label">Description</label>
+        <div class="col-sm-10">
+          <textarea class="form-control" required name="description" id="description" rows="3"></textarea>
+        </div>
+      </div>
+{{/*      <div class="form-group">*/}}
+{{/*        <label for="category" class="col-sm-2 col-form-label">Choose the Category</label>*/}}
+{{/*        <input type="radio" name="category" value="Computer">Computer<br>*/}}
+{{/*        <input type="radio" name="category" value="Mobile">Mobile<br>*/}}
+{{/*        <input type="radio" name="category" value="Laptop">Laptop<br>*/}}
+{{/*        <input type="radio" name="category" value="Camera">Camera<br>*/}}
+{{/*      </div>*/}}
+      <div class="form-group">
+        <label for="catimg" class="col-sm-2 col-form-label">Upload Image</label>
+        <div class="col-sm-10">
+          <input required type="file" class="form-control-file" name="catimg" id="catimg">
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary float-right">Add Product</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</main>
+{{ end }}

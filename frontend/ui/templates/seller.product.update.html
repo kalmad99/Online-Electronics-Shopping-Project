@@ -1,0 +1,123 @@
+{{ define "seller.products.update.layout" }}
+  {{ template "seller.navbar" . }}
+  {{ template "seller.products.update.content" . }}
+  {{ template "seller.footer" . }}
+{{ end }}
+
+{{ define "seller.products.update.content"}}
+  <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+      <h2>Update Product</h2>
+    </div>
+    <div class="container">
+      <form method="POST" action="/seller/products/update" enctype="multipart/form-data">
+        <input type="hidden" name='_csrf' value='{{ .CSRF }}' />
+        <input type="hidden" name='id' id='id' value='{{ .Product.ID }}' />
+        <input type="hidden" name='proid' value='{{ .Values.Get "proid" }}' />
+        <input type="hidden" name='catimg' value='{{ .Values.Get "catimg" }}' />
+        <input type="hidden" name='ratcount' value='{{ .Values.Get "ratcount" }}' />
+        <input type="hidden" name='rate' value='{{ .Values.Get "rate" }}' />
+        <div class="form-group row">
+          <label for="name" class="col-sm-2 col-form-label">Product Name</label>
+          {{with .VErrors.Get "name"}}
+            <label class="col-sm-2 col-form-label text-danger">{{.}}</label>
+          {{end}}
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name='name' id='name' placeholder="Product Name"
+                   value='{{ .Values.Get "name" }}'/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="price" class="col-sm-2 col-form-label">Price</label>
+          {{with .VErrors.Get "price"}}
+            <label class="col-sm-2 col-form-label text-danger">{{.}}</label>
+          {{end}}
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name='price' id='price' placeholder="Price"
+                   value='{{ .Values.Get "price" }}'/>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="quantity" class="col-sm-2 col-form-label">Quantity</label>
+          {{with .VErrors.Get "quantity"}}
+            <label class="col-sm-2 col-form-label text-danger">{{.}}</label>
+          {{end}}
+          <div class="col-sm-10">
+            <input type="text" class="form-control" name='quantity' id='quantity' placeholder="Quantity"
+                   value='{{ .Values.Get "quantity" }}'/>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="description" class="col-sm-2 col-form-label">Description</label>
+          {{with .VErrors.Get "description"}}
+            <label class="col-sm-2 col-form-label text-danger">{{.}}</label>
+          {{end}}
+          <div class="col-sm-10">
+            <textarea class="form-control" name='description' id='description'>{{ .Values.Get "description" }}</textarea>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="catimg" class="col-sm-2 col-form-label">Current Image</label>
+          <input type="hidden" name='imgname' value='{{ .Values.Get "catimg" }}' />
+          <img src='/assets/img/{{ .Values.Get "catimg" }}' width="80px" height="80px" />
+          <label for='catimg' class="col-sm-2 col-form-label">Upload New Image</label>
+          <div class="col-sm-10">
+            <input type="file" class="form-control-file" name='catimg' id='catimg'>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-10">
+            <button type='submit' class="btn btn-primary float-right">Update Product</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </main>
+{{ end }}
+{{/*{{ define "seller.products.update.layout" }}*/}}
+{{/*{{ template "seller.navbar" . }}*/}}
+{{/*{{ template "seller.products.update.content" . }}*/}}
+{{/*{{ template "seller.footer" . }}*/}}
+{{/*{{ end }}*/}}
+
+{{/*{{ define "seller.products.update.content"}}*/}}
+{{/*<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">*/}}
+{{/*  <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">*/}}
+{{/*    <h2>Update Menu Categories</h2>*/}}
+{{/*  </div>*/}}
+{{/*  <div class="container">*/}}
+{{/*    <form method="POST" action="/seller/product/update" enctype="multipart/form-data">*/}}
+{{/*      <input type="hidden" name="_csrf" value="{{ .CSRF }}" />*/}}
+{{/*      <input type="hidden" name="id" value="{{ .ID }}" />*/}}
+{{/*      <input type="hidden" name="image" value="{{ .Image }}" />*/}}
+{{/*      <div class="form-group row">*/}}
+{{/*        <label for="name" class="col-sm-2 col-form-label">Category Name</label>*/}}
+{{/*        <div class="col-sm-10">*/}}
+{{/*          <input type="text" class="form-control" name="name" id="name" placeholder="Category Name" value="{{ .Name }}">*/}}
+{{/*        </div>*/}}
+{{/*      </div>*/}}
+{{/*      <div class="form-group row">*/}}
+{{/*        <label for="description" class="col-sm-2 col-form-label">Description</label>*/}}
+{{/*        <div class="col-sm-10">*/}}
+{{/*          <textarea class="form-control" name="description" id="description" value="{{ .Description }}" ></textarea>*/}}
+{{/*        </div>*/}}
+{{/*      </div>*/}}
+{{/*        <div class="col-sm-10">*/}}
+{{/*       <img src="/assets/img/{{ .Image }}" width="80px" height="80px" />   */}}
+{{/*        </div>*/}}
+{{/*      <div class="form-group">*/}}
+{{/*        <label for="catimg" class="col-sm-2 col-form-label">Upload New Image</label>*/}}
+{{/*        <div class="col-sm-10">*/}}
+{{/*          <input type="file" class="form-control-file" name="catimg" id="catimg">*/}}
+{{/*        </div>*/}}
+{{/*      </div>*/}}
+{{/*      <div class="form-group row">*/}}
+{{/*        <div class="col-sm-10">*/}}
+{{/*          <button type="submit" class="btn btn-primary float-right">Update Category</button>*/}}
+{{/*        </div>*/}}
+{{/*      </div>*/}}
+{{/*    </form>*/}}
+{{/*  </div>*/}}
+{{/*</main>*/}}
+{{/*{{ end }}*/}}

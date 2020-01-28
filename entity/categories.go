@@ -1,9 +1,10 @@
 package entity
 
+// Category represents Food Menu Category
 type Category struct {
 	ID          uint
-	Name        string
+	Name        string `gorm:"type:varchar(255);not null"`
 	Description string
-	Image       string
-	Items       []Product
+	Image       string    `gorm:"type:varchar(255)"`
+	Products    []Product `gorm:"many2many:product_categories"`
 }
