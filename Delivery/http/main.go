@@ -20,6 +20,9 @@ import (
 
 	crepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart/repository"
 	csrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/cart/service"
+
+	orepim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/order/repository"
+	osrvim "github.com/kalmad99/Online-Electronics-Shopping-Project/allEntitiesAction/order/usecase"
 )
 
 func createTables(dbconn *gorm.DB) []error {
@@ -65,10 +68,13 @@ func main() {
 	roleRepo := urepimp.NewRoleGormRepo(dbconn)
 	roleServ := usrvimp.NewRoleService(roleRepo)
 
+	orderRepo := orepim.NewOrderGormRepo(dbconn)
+	orderServ := osrvim.NewOrderService(orderRepo)
+
 	ach := handler.NewAdminCategoryHandler(tmpl, categoryServ, csrfSignKey)
+	oh := handler.NewOrderHandler(tmpl, orderServ, userServ, itemServ, csrfSignKey)
 	sph := handler.NewSellerProductHandler(tmpl, itemServ, csrfSignKey)
 	mh := handler.NewMenuHandler(tmpl, itemServ, csrfSignKey)
-	ch := handler.NewCartHandler(tmpl, cartServ, csrfSignKey)
 	arh := handler.NewAdminRoleHandler(roleServ)
 
 	sess := ConfigSessions()
@@ -112,6 +118,10 @@ func main() {
 
 	http.Handle("/admin/carts", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetCarts))))
 	http.Handle("/admin/cart", uh.Authenticated(uh.Authorized(http.HandlerFunc(ch.GetSingleCart))))
+	
+	http.Handle("/admin/orders", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.Orders))))
+	http.Handle("/admin/order", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.GetUserOrder))))
+	http.Handle("/admin/order/delete", uh.Authenticated(uh.Authorized(http.HandlerFunc(oh.OrderDelete))))
 
 	http.Handle("/getusercart", uh.Authenticated(http.HandlerFunc(ch.GetUserCart)))
 	//http.HandleFunc("/getusercart", ch.GetUserCart)
